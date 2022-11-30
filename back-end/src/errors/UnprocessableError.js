@@ -1,7 +1,7 @@
 class UnprocessableError extends Error {
-    status;
     constructor(message) {
       super(message);
       this.status = 422;
     }
 }
+module.exports = UnprocessableError;
