@@ -7,11 +7,8 @@ services:
     platform: linux/x86_64
     restart: always
     ports:
-      - 3307:3306
+      - 3306:3306
       - 33070:33060
     environment:
-      MYSQL_ROOT_PASSWORD: password
-
-networks:
-  default:
-    name: blogs_api_net
+      MYSQL_ROOT_PORT: 3306
+      MYSQL_ROOT_PASSWORD: 'password'
