@@ -49,7 +49,9 @@ module.exports = {
                 type: Sequelize.STRING(50),
                 allowNull: false,
             }
-        });
+        },{
+            timestamps: false,
+          });
 
         down: async (queryInterface, Sequelize) => {
             await queryInterface.dropTable('sales');
