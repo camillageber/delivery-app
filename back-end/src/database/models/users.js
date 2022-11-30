@@ -6,7 +6,14 @@ const userSchema = (sequelize, DataTypes) => {
         role:DataTypes.STRING,
     }, {
         tableName: 'users',
-    })
+    });
+
+    // userTable.associate = (models) => {
+    //     userTable.hasMany(models.sales, {
+    //         foreignKey: ,
+    //         as: ,
+    //     });
+    // }
     return userTable;
 }
 
