@@ -51,6 +51,7 @@ module.exports = {
             }
         },{
             timestamps: false,
+            underscored: true,
           });
 
         down: async (queryInterface, Sequelize) => {
