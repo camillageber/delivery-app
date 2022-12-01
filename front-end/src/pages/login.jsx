@@ -16,10 +16,9 @@ function Login() {
   const loginSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await httpRequest.post('/login', { email, password });
-      localStorage.setItem('user', JSON.stringify(data));
-      // faltão partes aqui.
-      // redirecionar para a página de produtos
+      const data = await httpRequest.post('/login', { email, password });
+      const { authorization, name, role } = data;
+      localStorage.setItem('user', JSON.stringify(authorization, name, role));
     } catch (error) {
       setDisplayError(error.message);
     }
