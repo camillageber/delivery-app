@@ -1,5 +1,5 @@
 // regesx de validação de e-mail
-const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+const emailRegex = /\S+@\S+\.\S+/;
 const six = 6;
 
 function isLoginValid(email, password) {
