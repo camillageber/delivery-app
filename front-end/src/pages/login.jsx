@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import isLoginValid from '../validations/loginValidation';
 import httpRequest from '../axios/config';
 
@@ -13,12 +14,15 @@ function Login() {
     setIsButtonDisabled(!valid);
   }, [email, password]);
 
+  const navigate = useNavigate();
+
   const loginSubmit = async (event) => {
     event.preventDefault();
     try {
       const data = await httpRequest.post('/login', { email, password });
       const { authorization, name, role } = data;
       localStorage.setItem('user', JSON.stringify(authorization, name, role));
+      navigate('/customer/products');
     } catch (error) {
       setDisplayError(error.message);
     }

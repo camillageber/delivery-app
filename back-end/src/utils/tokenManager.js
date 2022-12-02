@@ -4,15 +4,17 @@ const CreateError = require('./createError');
 
 const { JWT_SECRET } = process.env;
 
-export const generateToken = (payload) => {
+const generateToken = (payload) => {
   const token = JWT.sign(payload, JWT_SECRET);
   return token;
 };
 
-export const validateToken = (token) => {
+const validateToken = (token) => {
   const decoded = JWT.verify(token, JWT_SECRET);
   if (!decoded) {
     throw new CreateError('UnauthorizedError', 'Token inválido');
   }
   return decoded;
 };
+
+module.exports = { generateToken, validateToken };
