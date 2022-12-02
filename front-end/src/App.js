@@ -9,7 +9,7 @@ function App() {
     <Routes>
       <Route exact path="/" element={ <Navigate replace to="/login" /> } />
       <Route path="/login" element={ <Login /> } />
-      <Route path="/customer/products" element={ <Products /> } />
+      <Route exact path="/customer/products" element={ <Products /> } />
     </Routes>
   );
 }

@@ -19,10 +19,12 @@ function Login() {
   const loginSubmit = async (event) => {
     event.preventDefault();
     try {
-      const data = await httpRequest.post('/login', { email, password });
-      const { authorization, name, role } = data;
-      localStorage.setItem('user', JSON.stringify(authorization, name, role));
-      navigate('/customer/products');
+      await httpRequest.post('/login', { email, password })
+        .then((data) => {
+          const { authorization, name, role } = data;
+          localStorage.setItem('user', JSON.stringify(authorization, name, role));
+          navigate('/customer/products');
+        });
     } catch (error) {
       setDisplayError(error.message);
     }
