@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import isLoginValid from '../validations/loginValidation';
+import isLoginValid from '../validations/registerValidation';
 import httpRequest from '../axios/config';
 
-function Login() {
+function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [displayError, setDisplayError] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-    const valid = isLoginValid(email, password);
+    const valid = isLoginValid(userName, email, password);
     setIsButtonDisabled(!valid);
-  }, [email, password]);
+  }, [userName, email, password]);
 
   const navigate = useNavigate();
 
-  const loginSubmit = async (event) => {
+  const registerSubmit = async (event) => {
     event.preventDefault();
     try {
-      await httpRequest.post('/login', { email, password })
+      await httpRequest.post('/register', { userName, email, password })
         .then((data) => {
           const { authorization, name, role } = data;
           localStorage.setItem('user', JSON.stringify(authorization, name, role));
@@ -33,15 +34,26 @@ function Login() {
   return (
     <main>
       <header>
-        <h1>App de delivery</h1>
+        <h1>Cadastro</h1>
       </header>
       <form
-        onSubmit={ loginSubmit }
+        onSubmit={ registerSubmit }
       >
-        <label htmlFor="email">
-          Login
+        <label htmlFor="name">
+          Nome
           <input
-            data-testid="common_login__input-email"
+            data-testid="common_register__input-name"
+            type="text"
+            id="name"
+            placeholder="Seu nome"
+            value={ userName }
+            onChange={ ({ target }) => setUserName(target.value) }
+          />
+        </label>
+        <label htmlFor="email">
+          Email
+          <input
+            data-testid="common_register__input-email"
             type="email"
             id="email"
             placeholder="email@trybeer.com.br"
@@ -52,7 +64,7 @@ function Login() {
         <label htmlFor="password">
           Senha
           <input
-            data-testid="common_login__input-password"
+            data-testid="common_register__input-password"
             type="password"
             id="password"
             placeholder="******"
@@ -61,23 +73,16 @@ function Login() {
           />
         </label>
         <button
-          data-testid="common_login__button-login"
+          data-testid="common_register__button-register"
           type="submit"
           disabled={ isButtonDisabled }
         >
-          LOGIN
-        </button>
-        <button
-          data-testid="common_login__button-register"
-          type="button"
-          onClick={ () => navigate('/register') }
-        >
-          Ainda não tenho conta
+          CADASTRAR
         </button>
       </form>
       { displayError
        && (
-         <p data-testid="common_login__element-invalid-email">
+         <p data-testid="common_register__element-invalid_register">
            { displayError }
          </p>
        ) }
@@ -85,4 +90,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
