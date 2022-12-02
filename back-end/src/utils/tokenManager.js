@@ -2,7 +2,7 @@ const JWT = require('jsonwebtoken');
 require('dotenv/config');
 const CreateError = require('./createError');
 
-const { JWT_SECRET } = process.env;
+const JWT_SECRET = '../../jwt.evaluation.key';
 
 const generateToken = (payload) => {
   const token = JWT.sign(payload, JWT_SECRET);
