@@ -1,6 +1,6 @@
+const md5 = require('md5');
 const db = require('../database/models');
 const CreateError = require('../utils/createError');
-const verifyHash = require('../utils/verifyPassword');
 const { generateToken } = require('../utils/tokenManager');
 
 const registerService = {
@@ -9,11 +9,11 @@ const registerService = {
         if (user) {
             throw new CreateError('ConflictError', 'Conflito: Usuário já cadastrado');
         }
-        const hashDB = user.password;
-        const senhaValidada = verifyHash(hashDB, password);
+        const senhaValidada = md5(password);
         const createdUser = await db.User
           .create({ name, email, password: senhaValidada, role: '' });
-        const token = await generateToken({ id: createdUser.id });
+          const { password: _, ...userWithoutPassword } = createdUser.toJSON();
+        const token = generateToken(userWithoutPassword);
         return { token };
     },
     
