@@ -11,10 +11,15 @@ const registerService = {
         }
         const senhaValidada = md5(password);
         const createdUser = await db.User
-          .create({ name, email, password: senhaValidada, role: '' });
+          .create({ name, email, password: senhaValidada, role: 'customer' });
           const { password: _, ...userWithoutPassword } = createdUser.toJSON();
         const token = generateToken(userWithoutPassword);
-        return { token };
+        const retorno = {
+            authorization: token, 
+            name: userWithoutPassword.name,
+            role: userWithoutPassword.role,
+        };
+        return retorno;
     },
     
 };

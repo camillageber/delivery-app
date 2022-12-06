@@ -19,12 +19,17 @@ function Register() {
 
   const registerSubmit = async (event) => {
     event.preventDefault();
-    httpRequest.post('/register', { userName, email, password })
-      .then(({ data }) => {
-        const { authorization, name, role } = data;
-        localStorage.setItem('user', JSON.stringify({ authorization, name, role }));
-        navigate('/customer/products');
-      }).catch((error) => setDisplayError(error.message));
+    try {
+      await httpRequest.post('/register', { name: userName, email, password })
+        .then(({ data }) => {
+          const { authorization, name, role } = data;
+          localStorage.setItem('user', JSON.stringify({ authorization, name, role }));
+          navigate('/customer/products');
+        });
+    } catch (AxiosError) {
+      console.log(AxiosError);
+      setDisplayError(AxiosError.response.data.message);
+    }
   };
 
   return (
