@@ -1,4 +1,3 @@
-// regesx de validação de e-mail
 const emailRegex = /\S+@\S+\.\S+/;
 const six = 6;
 const twelve = 12;
