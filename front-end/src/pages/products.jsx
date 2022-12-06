@@ -4,7 +4,9 @@ import Navigation from '../components/Navigation';
 function Products() {
   return (
     <main>
-      <Navigation />
+      <Navigation
+        data-testid="customer_products__element-navbar-link-products"
+      />
     </main>
   );
 }
