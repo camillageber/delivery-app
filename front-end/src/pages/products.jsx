@@ -1,14 +1,10 @@
 import React from 'react';
+import Navigation from '../components/Navigation';
 
 function Products() {
   return (
     <main>
-      <a href="default.asp">
-        <img
-          src="https://pbs.twimg.com/profile_images/1476946981071298568/4TlsjUVw_400x400.jpg"
-          alt="Uma bela imagem"
-        />
-      </a>
+      <Navigation />
     </main>
   );
 }
