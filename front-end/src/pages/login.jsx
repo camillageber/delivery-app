@@ -16,14 +16,29 @@ function Login() {
 
   const navigate = useNavigate();
 
+  // const loginSubmit = async (event) => {
+  //   event.preventDefault();
+  //   httpRequest.post('/login', { email, password })
+  //     .then(({ data }) => {
+  //       const { authorization, name, role } = data;
+  //       localStorage.setItem('user', JSON.stringify({ authorization, name, role }));
+  //       navigate('/customer/products');
+  //     }).catch((error) => setDisplayError(error.message));
+  // };
+
   const loginSubmit = async (event) => {
     event.preventDefault();
-    httpRequest.post('/login', { email, password })
-      .then(({ data }) => {
-        const { authorization, name, role } = data;
-        localStorage.setItem('user', JSON.stringify({ authorization, name, role }));
-        navigate('/customer/products');
-      }).catch((error) => setDisplayError(error.message));
+    try {
+      await httpRequest.post('/login', { email, password })
+        .then(({ data }) => {
+          const { authorization, name, role } = data;
+          localStorage.setItem('user', JSON.stringify({ authorization, name, role }));
+          navigate('/customer/products');
+        });
+    } catch (AxiosError) {
+      console.log(AxiosError);
+      setDisplayError(AxiosError.response.data.message);
+    }
   };
 
   return (
