@@ -31,7 +31,7 @@ function ProductCard({ cardId, cardName, cardImage, cardPrice /* cardQuantity */
       <button
         type="button"
         data-testid={ `customer_products__button-card-rm-item-${cardId}` }
-        onClick={ () => (quantity > 0 ? setQuantity(quantity - 1) : null) }
+        onClick={ () => (quantity > 0 && setQuantity(quantity - 1)) }
       >
         -
       </button>
@@ -40,6 +40,7 @@ function ProductCard({ cardId, cardName, cardImage, cardPrice /* cardQuantity */
         data-testid={ `customer_products__input-card-quantity-${cardId}` }
         defaultValue="0"
         value={ quantity }
+        onChange={ ({ target }) => (target.value >= 0 && setQuantity(target.value)) }
       />
     </div>
   );
