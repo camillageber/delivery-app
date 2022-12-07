@@ -15,9 +15,10 @@ const registerService = {
           const { password: _, ...userWithoutPassword } = createdUser.toJSON();
         const token = generateToken(userWithoutPassword);
         const retorno = {
-            authorization: token, 
+            token, 
             name: userWithoutPassword.name,
             role: userWithoutPassword.role,
+            email: userWithoutPassword.email,
         };
         return retorno;
     },

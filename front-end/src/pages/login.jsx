@@ -16,6 +16,9 @@ function Login() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.removeItem('user');
+  });
   // const loginSubmit = async (event) => {
   //   event.preventDefault();
   //   httpRequest.post('/login', { email, password })
@@ -31,8 +34,8 @@ function Login() {
     try {
       await httpRequest.post('/login', { email, password })
         .then(({ data }) => {
-          const { authorization, name, role } = data;
-          localStorage.setItem('user', JSON.stringify({ authorization, name, role }));
+          const { token, name, role } = data;
+          localStorage.setItem('user', JSON.stringify({ token, name, role, email }));
           navigate('/customer/products');
         });
     } catch (AxiosError) {

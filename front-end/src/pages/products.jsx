@@ -11,7 +11,6 @@ function Products() {
       try {
         await httpRequest.get('/products')
           .then(({ data }) => {
-            console.log(data);
             setProducts(data);
           });
       } catch (AxiosError) {
@@ -35,7 +34,7 @@ function Products() {
             cardId={ id }
             cardName={ name }
             cardImage={ urlImage }
-            cardPrice={ price }
+            cardPrice={ price.replace(/\./, ',') }
           />
         ))}
       </section>

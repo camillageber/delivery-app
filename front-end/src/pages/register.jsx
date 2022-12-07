@@ -22,8 +22,8 @@ function Register() {
     try {
       await httpRequest.post('/register', { name: userName, email, password })
         .then(({ data }) => {
-          const { authorization, name, role } = data;
-          localStorage.setItem('user', JSON.stringify({ authorization, name, role }));
+          const { token, name, role } = data;
+          localStorage.setItem('user', JSON.stringify({ token, name, role, email }));
           navigate('/customer/products');
         });
     } catch (AxiosError) {
