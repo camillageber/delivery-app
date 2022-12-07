@@ -6,18 +6,18 @@ import httpRequest from '../axios/config';
 function Products() {
   const [products, setProducts] = useState([]);
 
+  const fetchProducts = async () => {
+    // try {
+    await httpRequest.get('/products')
+      .then(({ data }) => {
+        setProducts(data);
+      });
+    // } catch (AxiosError) {
+    // console.log(AxiosError);
+    // setDisplayError(AxiosError.response.data.message);
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        await httpRequest.get('/products')
-          .then(({ data }) => {
-            setProducts(data);
-          });
-      } catch (AxiosError) {
-        console.log(AxiosError);
-        setDisplayError(AxiosError.response.data.message);
-      }
-    };
     fetchProducts();
   }, []);
 
@@ -34,7 +34,7 @@ function Products() {
             cardId={ id }
             cardName={ name }
             cardImage={ urlImage }
-            cardPrice={ price.replace(/\./, ',') }
+            cardPrice={ price }
           />
         ))}
       </section>
