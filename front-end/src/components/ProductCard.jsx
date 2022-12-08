@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import './ProductCard.css';
 
-function ProductCard({ cardId, cardName, cardImage, cardPrice /* cardQuantity */ }) {
+function ProductCard({ cardId, cardName, cardImage, cardPrice, updateCart }) {
   const [quantity, setQuantity] = useState();
   const [productTotalPrice, setProductTotalPrice] = useState(0);
 
@@ -24,7 +25,10 @@ function ProductCard({ cardId, cardName, cardImage, cardPrice /* cardQuantity */
     if (productExists) {
       const newProductCard = productCard.map((item) => {
         if (item.id === product.id) {
-          return { ...item, quantity: product.quantity, productTotalPrice: product.productTotalPrice };
+          return {
+            ...item,
+            quantity: product.quantity,
+            productTotalPrice: product.productTotalPrice };
         }
         return item;
       });
@@ -37,6 +41,7 @@ function ProductCard({ cardId, cardName, cardImage, cardPrice /* cardQuantity */
     if (productCard && !productExists) {
       localStorage.setItem('productCar', JSON.stringify([...productCard, product]));
     }
+    updateCart();
   };
 
   const removeFromCard = (id) => {
@@ -68,50 +73,55 @@ function ProductCard({ cardId, cardName, cardImage, cardPrice /* cardQuantity */
     setProductTotalPrice(() => (quantity * cardPriceNumber));
     // productTotalPrice ===0 && removeFromCard(product);
     createProduct();
+    updateCart();
   }, [quantity, productTotalPrice]);
 
   useEffect(() => {
     if (quantity === 0) removeFromCard(cardId);
+    updateCart();
   }, [productTotalPrice]);
 
   return (
     <div
-      data-testid={`customer_products__element-card-price-${cardId}`}
+      className="product-card"
+      data-testid={ `customer_products__element-card-price-${cardId}` }
     >
-      <p data-testid={`customer_products__element-card-title-${cardId}`}>
+      <p data-testid={ `customer_products__element-card-title-${cardId}` }>
         {cardName}
       </p>
       <img
-        data-testid={`customer_products__img-card-bg-image-${cardId}`}
-        src={cardImage}
-        alt={`Planeta ${cardName}`}
+        data-testid={ `customer_products__img-card-bg-image-${cardId}` }
+        src={ cardImage }
+        alt={ `Planeta ${cardName}` }
       />
       <p
-        data-testid={`customer_products__element-card-price-${cardId}`}
+        data-testid={ `customer_products__element-card-price-${cardId}` }
       >
         {cardPrice.replace(/\./, ',')}
       </p>
-      <button
-        type="button"
-        data-testid={`customer_products__button-card-add-item-${cardId}`}
-        onClick={() => setQuantity(quantity + 1)}
-      >
-        +
-      </button>
-      <button
-        type="button"
-        data-testid={`customer_products__button-card-rm-item-${cardId}`}
-        onClick={() => (quantity > 0 && setQuantity(quantity - 1))}
-      >
-        -
-      </button>
-      <input
-        type="text"
-        data-testid={`customer_products__input-card-quantity-${cardId}`}
-        value={quantity}
-        onChange={({ target }) => (target
-          .value >= 0 && setQuantity(Number(target.value)))}
-      />
+      <div className="buttons-container">
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-add-item-${cardId}` }
+          onClick={ () => setQuantity(quantity + 1) }
+        >
+          +
+        </button>
+        <input
+          type="text"
+          data-testid={ `customer_products__input-card-quantity-${cardId}` }
+          value={ quantity }
+          onChange={ ({ target }) => (target
+            .value >= 0 && setQuantity(Number(target.value))) }
+        />
+        <button
+          type="button"
+          data-testid={ `customer_products__button-card-rm-item-${cardId}` }
+          onClick={ () => (quantity > 0 && setQuantity(quantity - 1)) }
+        >
+          -
+        </button>
+      </div>
     </div>
   );
 }
@@ -121,7 +131,7 @@ ProductCard.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardPrice: PropTypes.string.isRequired,
-  /*  cardQuantity: PropTypes.string.isRequired, */
+  updateCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
