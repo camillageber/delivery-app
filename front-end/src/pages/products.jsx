@@ -63,12 +63,15 @@ function Products() {
         ))}
       </section>
       <button
-        type="button"
-        data-testid="customer_products__checkout-bottom-value"
+        type="submit"
+        data-testid="customer_products__button-cart"
         onClick={ () => navigate('/customer/checkout') }
         disabled={ disabledButton }
       >
-        { `${total.toString().replace(/\./, ',')}` }
+        <span data-testid="customer_products__checkout-bottom-value">
+          { `${total.toString().replace(/\./, ',')}` }
+        </span>
+
       </button>
     </main>
   );
