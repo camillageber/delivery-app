@@ -7,6 +7,7 @@ const Sale = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
+      field:'user_id',
       references: {
         model: 'users',
         key: 'id'
