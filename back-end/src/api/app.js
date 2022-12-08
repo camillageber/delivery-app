@@ -7,6 +7,7 @@ const express = require('express');
 const authRouter = require('../routers/authRouter');
 const registerRouter = require('../routers/registerRouter');
 const productRouter = require('../routers/productRouter');
+const saleRouter = require('../routers/saleRouter');
 
 const middlewares = require('../middlewares');
 
@@ -19,6 +20,7 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', authRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
+app.use('/sales', saleRouter);
 
 app.use(middlewares.error);
 module.exports = app;

@@ -12,7 +12,7 @@ const generateToken = (payload) => {
   return token;
 };
 
-const validateToken = (token) => {
+const validateToken = async (token) => {
   const decoded = JWT.verify(token, JWT_SECRET);
   if (!decoded) {
     throw new CreateError('UnauthorizedError', 'Token inválido');
