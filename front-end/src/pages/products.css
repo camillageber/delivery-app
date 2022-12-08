@@ -1,0 +1,21 @@
+img {
+  height: 100px;
+  width: 100px;
+}
+
+.products-cards-render-section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+}

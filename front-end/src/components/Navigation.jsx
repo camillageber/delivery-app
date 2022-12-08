@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './Navigation.css';
 // import NavComponents from './NavComponents';
 
 function Navigation() {
+  const [nameDisplay, setName] = useState('Nome do usuário');
+  useEffect(() => {
+    const { name } = JSON.parse(localStorage.getItem('user'));
+    setName(name);
+  }, [nameDisplay]);
+
   return (
-    <nav>
+    <nav className="nav-container">
       <section
         data-testid="customer_products__element-navbar-link-products"
       >
@@ -17,13 +25,14 @@ function Navigation() {
       <section
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        <a href="/customer/">Nome do usuário</a>
+        <a href="/customer/">{nameDisplay}</a>
       </section>
-      <section
+      <Link
         data-testid="customer_products__element-navbar-link-logout"
+        to="/login"
       >
-        <a href="/customer/logout">Sair</a>
-      </section>
+        Sair
+      </Link>
     </nav>
   );
 }
