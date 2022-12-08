@@ -24,11 +24,11 @@ const Sale = (sequelize, DataTypes) => {
       allowNull: false
     },
     deliveryAddress: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false
     },
     deliveryNumber: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: false
     },
     saleDate: {
@@ -36,8 +36,10 @@ const Sale = (sequelize, DataTypes) => {
       allowNull: false
     },
     status: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'Pendente'
+
     },
 
   }, {
