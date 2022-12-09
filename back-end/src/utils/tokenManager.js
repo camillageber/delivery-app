@@ -1,14 +1,11 @@
 const JWT = require('jsonwebtoken');
-const fs = require('fs');
 require('dotenv/config');
 const CreateError = require('./createError');
 
-const JWT_SECRET = fs.readFileSync('./jwt.evaluation.key',
-            { encoding: 'utf8', flag: 'r' });
+const JWT_SECRET = '../../jwt.evaluation.key';
 
 const generateToken = (payload) => {
   const token = JWT.sign(payload, JWT_SECRET);
-  console.log(JWT_SECRET);
   return token;
 };
 

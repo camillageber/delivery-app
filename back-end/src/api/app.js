@@ -8,6 +8,7 @@ const authRouter = require('../routers/authRouter');
 const registerRouter = require('../routers/registerRouter');
 const productRouter = require('../routers/productRouter');
 const saleRouter = require('../routers/saleRouter');
+const userRouter = require('../routers/userRouter');
 
 const middlewares = require('../middlewares');
 
@@ -21,6 +22,8 @@ app.use('/login', authRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
 app.use('/sales', saleRouter);
+app.use('/users', userRouter);
+
 
 app.use(middlewares.error);
 module.exports = app;
