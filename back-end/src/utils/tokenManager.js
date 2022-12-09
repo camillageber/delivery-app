@@ -2,10 +2,14 @@ const JWT = require('jsonwebtoken');
 require('dotenv/config');
 const CreateError = require('./createError');
 
-const JWT_SECRET = '../../jwt.evaluation.key';
+const JWT_SECRET = '../../jwt.evaluation.key' || 'secret_key';
+
+const jwtConfig = {
+  algorithm: 'HS256',
+};
 
 const generateToken = (payload) => {
-  const token = JWT.sign(payload, JWT_SECRET);
+  const token = JWT.sign(payload, JWT_SECRET, jwtConfig);
   return token;
 };
 

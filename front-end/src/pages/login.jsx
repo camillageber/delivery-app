@@ -35,7 +35,8 @@ function Login() {
       await httpRequest.post('/login', { email, password })
         .then(({ data }) => {
           const { token, name, role } = data;
-          localStorage.setItem('user', JSON.stringify({ token, name, role, email }));
+          localStorage.setItem('user', JSON
+            .stringify({ token, name, role, email }));
           navigate('/customer/products');
         });
     } catch (AxiosError) {
