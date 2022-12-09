@@ -12,7 +12,7 @@ const productController = {
         return res.status(201).json(response);
     },
 
-    findById: async () => {
+    findById: async (req, res) => {
         const { id } = req.params;
         const response = await productService.findById(id);
         return res.status(200).json(response);
@@ -22,7 +22,7 @@ const productController = {
         const { id } = req.params;
         await productService.deleteProduct(id);
         return res.status(204).json();
-    }
+    },
 };
 
 module.exports = productController;

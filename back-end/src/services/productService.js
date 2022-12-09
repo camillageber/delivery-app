@@ -13,12 +13,12 @@ const productService = {
 
     findById: async (id) => {
         const products = await db.Product.findByPk(id);
-        return products
+        return products;
     },
 
     deleteProduct: async (id) => {
-        await db.Product.destroy({ where: { id } })
-    }
+        await db.Product.destroy({ where: { id } });
+    },
 };
 
 module.exports = productService;

@@ -24,6 +24,5 @@ app.use('/products', productRouter);
 app.use('/sales', saleRouter);
 app.use('/users', userRouter);
 
-
 app.use(middlewares.error);
 module.exports = app;

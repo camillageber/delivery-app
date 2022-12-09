@@ -16,6 +16,6 @@ const userController = {
     const userAll = await userService.findSellers();
     res.status(200).json(userAll);
   },
-}
+};
 
 module.exports = userController;

@@ -1,4 +1,4 @@
-const db = require("../database/models");
+const db = require('../database/models');
 
 const userService = {
   findUser: async (id) => {
@@ -7,12 +7,16 @@ const userService = {
   },
 
   findCustomers: async () => {
-    const userAll = await db.User.findAll({ where: { role: "customer" }, attributes: ['name'] });
+    const userAllCustomers = await db.User.findAll({ 
+      where: { role: 'customer' }, attributes: ['name'] });
+    return userAllCustomers;
   },
 
   findSellers: async () => {
-    const userAll = await db.User.findAll({ where: { role: "seller" }, attributes: ['name'] });
-  }
-}
+    const userAllSellers = await db.User.findAll({ 
+      where: { role: 'seller' }, attributes: ['name'] });
+    return userAllSellers;
+  },
+};
 
 module.exports = userService;
