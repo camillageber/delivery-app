@@ -1,31 +1,39 @@
 import React from 'react';
 // import Card from 'react-bootstrap/Card';
+import PropTypes from 'prop-types';
 
-function orderCard(orderId, status, date, value) {
+function OrderCard(orderId, orderStatus, orderDate, orderValue) {
   return (
     <div>
       <p
-        data-testid={ `customer_orders__element-order-id-${orderId}` }
+        data-testid={`customer_orders__element-order-id-${orderId}`}
       >
         {`Pedido ${orderId}`}
       </p>
       <p
-        data-testid={ `customer_orders__element-delivery-status-${orderId}` }
+        data-testid={`customer_orders__element-delivery-status-${orderId}`}
       >
-        { status }
+        {orderStatus}
       </p>
       <p
-        data-testid={ `customer_orders__element-order-date-${orderId}` }
+        data-testid={`customer_orders__element-order-date-${orderId}`}
       >
-        { date }
+        {orderDate}
       </p>
       <p
-        data-testid={ `customer_orders__element-card-price-${orderId}` }
+        data-testid={`customer_orders__element-card-price-${orderId}`}
       >
-        { value }
+        {orderValue}
       </p>
     </div>
   );
 }
 
-export default orderCard;
+OrderCard.propTypes = {
+  orderId: PropTypes.number,
+  orderStatus: PropTypes.string,
+  orderDate: PropTypes.string,
+  orderValue: PropTypes.string,
+}.isRequired;
+
+export default OrderCard;
