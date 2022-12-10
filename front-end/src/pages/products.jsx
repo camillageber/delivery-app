@@ -1,25 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import Navigation from '../components/Navigation';
 import ProductCard from '../components/ProductCard';
-import httpRequest from '../axios/config';
+import ProductContext from '../context/ProductContext';
 import './products.css';
 
 function Products() {
-  const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [disabledButton, setDisabledButton] = useState(true);
-
-  const fetchProducts = async () => {
-    // try {
-    await httpRequest.get('/products')
-      .then(({ data }) => {
-        setProducts(data);
-      });
-    // } catch (AxiosError) {
-    // console.log(AxiosError);
-    // setDisplayError(AxiosError.response.data.message);
-  };
+  const { products } = useContext(ProductContext);
 
   const totalProducts = () => {
     let calculateTotal = 0;
@@ -32,7 +21,6 @@ function Products() {
   };
 
   useEffect(() => {
-    fetchProducts();
     totalProducts();
   }, []);
 

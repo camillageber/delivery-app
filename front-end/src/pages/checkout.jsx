@@ -1,7 +1,14 @@
 import React from 'react';
+import Navigation from '../components/Navigation';
+import Table from '../components/Table';
 
 function Checkout() {
-  return (<h1>Oi</h1>
+  return (
+    <>
+      <Navigation />
+      <h2>Finalizar Pedido</h2>
+      <Table />
+    </>
   );
 }
 
