@@ -5,7 +5,7 @@ import Login from './pages/login';
 import Products from './pages/products';
 import Register from './pages/register';
 import Checkout from './pages/checkout';
-import SellersOrders from './pages/sellers/sellersOrders';
+import SellerOrders from './pages/sellers/sellersOrders';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       <Route path="/register" element={ <Register /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
-      <Route path="/seller/orders" component={ SellersOrders } />
+      <Route path="/seller/orders" component={ SellerOrders } />
     </Routes>
   );
 }

@@ -17,10 +17,14 @@ function SellerOrders() {
 
   return (
     <div>
-      <NavigationSeller />
+      <header>
+        <NavigationSeller />
+      </header>
+
       <main>
         { orders.map((order) => <CardSaleSeller key={ order.id } { ...order } />)}
       </main>
+
     </div>
   );
 }
