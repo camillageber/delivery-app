@@ -5,18 +5,32 @@ function Table({ itens }) {
   const generateRow = () => itens.map((item, index) => (
     <tr key={ index }>
       <td
-        data-testid={ `customer_checkout__element-order-table-item-number-${index + 1}` }
+        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
       >
         {index + 1}
       </td>
       <td
-        data-testid={ `customer_checkout__element-order-table-item-name-${index + 1}` }
+        data-testid={ `customer_checkout__element-order-table-name-${index}` }
+      >
+        {item.name}
+      </td>
+      <td
+        data-testid={
+          `customer_checkout__element-order-table-quantity-${index}`
+        }
       >
         {item.quantity}
       </td>
       <td
         data-testid={
-          `customer_checkout__element-order-table-item-quantity-${index + 1}`
+          `customer_checkout__element-order-table-unit-price-${index}`
+        }
+      >
+        {item.price}
+      </td>
+      <td
+        data-testid={
+          `customer_checkout__element-order-table-sub-total-${index}`
         }
       >
         {item.productTotalPrice}
@@ -24,8 +38,7 @@ function Table({ itens }) {
       <td>
         <button
           type="submit"
-          data-testid="delete-btn"
-          id={ expense.id }
+          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
           onClick={ (e) => deleteRow(e) }
         >
           Remover
@@ -64,6 +77,12 @@ function Table({ itens }) {
           }
         </tbody>
       </table>
+      <span
+        data-testid="customer_checkout__element-order-total-price"
+      >
+        Total: R$ 28,46
+
+      </span>
     </div>
   );
 }

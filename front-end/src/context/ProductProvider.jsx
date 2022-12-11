@@ -17,10 +17,36 @@ export default function ProductProvider({ children }) {
     // setDisplayError(AxiosError.response.data.message);
   };
 
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const genNewSelectedProductsOBJ = (obj) => {
+    const findObj = products.find((product) => product.id === obj.id);
+    const { name, price } = findObj;
+
+    return { ...obj, name, price };
+  };
+
+  const generateSelectedProducts = () => {
+    const selectedProducts = JSON.parse(localStorage.getItem('productCar'));
+    let newSelectedProducts = [];
+    if (selectedProducts) {
+      newSelectedProducts = selectedProducts.map((selected) => {
+        const newProduct = genNewSelectedProductsOBJ((selected));
+        return newProduct;
+      });
+    }
+    return newSelectedProducts;
+  };
+
+  useEffect(() => {
+    if (products.length > 0) generateSelectedProducts();
+  }, [products]);
 
   const valuesContext = {
     products,
+    generateSelectedProducts,
   };
 
   return (
