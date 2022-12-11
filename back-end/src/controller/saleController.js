@@ -1,4 +1,6 @@
 const saleService = require('../services/saleService');
+const { validateToken } = require('../utils/tokenManager');
+
 
 const saleController = {
   createSale: async (req, res) => {
@@ -7,9 +9,10 @@ const saleController = {
   },
 
   findAllSales: async (req, res) => {
-    const { id } = res.data;
+    const token = req.headers.authorization;
+    const { id } = validateToken(token);
     const sales = await saleService.findAllSales(id);
-    res.states(200).json(sales);
+    res.sgittates(200).json(sales);
   },
 
   saleById: async (req, res) => {
