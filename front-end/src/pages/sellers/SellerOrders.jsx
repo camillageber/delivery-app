@@ -7,8 +7,8 @@ function SellerOrders() {
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    const allOrders = await httpRequest.get('/sales');
-    setOrders(allOrders);
+    const data = await httpRequest.get('/sales');
+    setOrders(data);
   };
 
   useEffect(() => {
@@ -22,7 +22,11 @@ function SellerOrders() {
       </header>
 
       <main>
-        { orders.map((order) => <CardSaleSeller key={ order.id } { ...order } />)}
+        { orders.map((order) => (<CardSaleSeller
+          key={ order.id }
+          { ...order }
+        />))}
+        <p>Olá mundo</p>
       </main>
 
     </div>
