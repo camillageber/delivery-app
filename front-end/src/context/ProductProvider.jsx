@@ -5,7 +5,7 @@ import httpRequest from '../axios/config';
 
 export default function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
-
+  const [selectedProduct, setSelectedProduct] = useState([]);
   const fetchProducts = async () => {
     // try {
     await httpRequest.get('/products')
@@ -37,7 +37,13 @@ export default function ProductProvider({ children }) {
         return newProduct;
       });
     }
-    return newSelectedProducts;
+    return setSelectedProduct(newSelectedProducts);
+  };
+
+  const deleteSelectProduct = ({ target }) => {
+    const { id } = target;
+    const newSelectedProducts = selectedProduct.filter((sel) => sel.name !== id);
+    setSelectedProduct(newSelectedProducts);
   };
 
   useEffect(() => {
@@ -47,6 +53,8 @@ export default function ProductProvider({ children }) {
   const valuesContext = {
     products,
     generateSelectedProducts,
+    selectedProduct,
+    deleteSelectProduct,
   };
 
   return (

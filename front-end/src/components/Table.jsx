@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import ProductContext from '../context/ProductContext';
 
 function Table({ itens }) {
+  const total = itens.reduce((prev, curr) => prev
+  + parseFloat(curr.productTotalPrice), 0).toFixed(2);
+
+  const { deleteSelectProduct } = useContext(ProductContext);
+
   const generateRow = () => itens.map((item, index) => (
     <tr key={ index }>
       <td
@@ -26,20 +32,21 @@ function Table({ itens }) {
           `customer_checkout__element-order-table-unit-price-${index}`
         }
       >
-        {item.price}
+        {item.price.toString().replace(/\./, ',')}
       </td>
       <td
         data-testid={
           `customer_checkout__element-order-table-sub-total-${index}`
         }
       >
-        {item.productTotalPrice}
+        {item.productTotalPrice.toString().replace(/\./, ',')}
       </td>
       <td>
         <button
           type="submit"
           data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-          onClick={ (e) => deleteRow(e) }
+          id={ item.name }
+          onClick={ (e) => deleteSelectProduct(e) }
         >
           Remover
 
@@ -80,7 +87,9 @@ function Table({ itens }) {
       <span
         data-testid="customer_checkout__element-order-total-price"
       >
-        Total: R$ 28,46
+        Total: R$
+        {' '}
+        {total.toString().replace(/\./, ',')}
 
       </span>
     </div>

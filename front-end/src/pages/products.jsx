@@ -14,8 +14,8 @@ function Products() {
     let calculateTotal = 0;
     const cart = JSON.parse(localStorage.getItem('productCar'));
     if (cart) {
-      calculateTotal = (cart.reduce((prev, curr) => prev + curr.productTotalPrice, 0))
-        .toFixed(2);
+      calculateTotal = (cart.reduce((prev, curr) => prev
+      + parseFloat(curr.productTotalPrice), 0)).toFixed(2);
       setTotal(calculateTotal);
     }
   };
