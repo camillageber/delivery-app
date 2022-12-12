@@ -27,6 +27,11 @@ createSale: async (orderSale) => {
     return { saleId: sale.id };
   },
 
+  getSellers: async () => {
+    const sellers = await db.User.findAll({ where: { role: "seller"}, attributes: { exclude: ['password'] } });
+    return sellers;
+  },
+  
 };
 
 module.exports = saleService;

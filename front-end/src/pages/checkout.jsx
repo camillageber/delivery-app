@@ -5,9 +5,12 @@ import Table from '../components/Table';
 import ProductContext from '../context/ProductContext';
 
 function Checkout() {
-  const { generateSelectedProducts, selectedProduct } = useContext(ProductContext);
+  const { generateSelectedProducts, selectedProduct,
+    generateObjSale,
+  } = useContext(ProductContext);
 
-  useEffect(() => { generateSelectedProducts(); }, []);
+  useEffect(() => { generateSelectedProducts(); generateObjSale(); }, []);
+
   return (
     <>
       <Navigation />
@@ -19,6 +22,7 @@ function Checkout() {
       <button
         type="submit"
         data-testid="customer_checkout__button-submit-order"
+        onClick={ () => registerSale() }
       >
         Finalizar Pedido
       </button>

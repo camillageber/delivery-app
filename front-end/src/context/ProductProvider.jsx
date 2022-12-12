@@ -6,6 +6,11 @@ import httpRequest from '../axios/config';
 export default function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
+  const [sellers, setSellers] = useState([]);
+  const [userAddress, setUserAddress] = useState('');
+  const [userAddressNumber, setUserAddressNumber] = useState('');
+  const [selectedSeller, setSelectedSeller] = useState('2');
+
   const fetchProducts = async () => {
     // try {
     await httpRequest.get('/products')
@@ -17,8 +22,14 @@ export default function ProductProvider({ children }) {
     // setDisplayError(AxiosError.response.data.message);
   };
 
+  const getSellers = async () => {
+    await httpRequest.get('/sales/sellers')
+      .then(({ data }) => setSellers(data));
+  };
+
   useEffect(() => {
     fetchProducts();
+    getSellers();
   }, []);
 
   const genNewSelectedProductsOBJ = (obj) => {
@@ -40,6 +51,12 @@ export default function ProductProvider({ children }) {
     return setSelectedProduct(newSelectedProducts);
   };
 
+  const generateObjSale = async () => {
+    const getUserStorage = JSON.parse(localStorage.getItem('user'));
+    const { id } = getUserStorage;
+    console.log(id);
+  };
+
   const deleteSelectProduct = ({ target }) => {
     const { id } = target;
     const newSelectedProducts = selectedProduct.filter((sel) => sel.name !== id);
@@ -55,6 +72,11 @@ export default function ProductProvider({ children }) {
     generateSelectedProducts,
     selectedProduct,
     deleteSelectProduct,
+    generateObjSale,
+    sellers,
+    setUserAddress,
+    setUserAddressNumber,
+    setSelectedSeller,
   };
 
   return (

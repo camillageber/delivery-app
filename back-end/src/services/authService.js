@@ -21,6 +21,7 @@ const authService = {
             name,
             role,
             email,
+            id: user.id
         };
         return retorno;
     },
