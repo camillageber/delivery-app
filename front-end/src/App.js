@@ -5,16 +5,19 @@ import Login from './pages/login';
 import Products from './pages/products';
 import Register from './pages/register';
 import Checkout from './pages/checkout';
+import ProductProvider from './context/ProductProvider';
 
 function App() {
   return (
-    <Routes>
-      <Route exact path="/" element={ <Navigate replace to="/login" /> } />
-      <Route path="/login" element={ <Login /> } />
-      <Route path="/register" element={ <Register /> } />
-      <Route exact path="/customer/products" element={ <Products /> } />
-      <Route exact path="/customer/checkout" element={ <Checkout /> } />
-    </Routes>
+    <ProductProvider>
+      <Routes>
+        <Route exact path="/" element={ <Navigate replace to="/login" /> } />
+        <Route path="/login" element={ <Login /> } />
+        <Route path="/register" element={ <Register /> } />
+        <Route exact path="/customer/products" element={ <Products /> } />
+        <Route exact path="/customer/checkout" element={ <Checkout /> } />
+      </Routes>
+    </ProductProvider>
   );
 }
 
