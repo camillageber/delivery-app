@@ -69,7 +69,7 @@ function ProductCard({ cardId, cardName, cardImage, cardPrice, updateCart }) {
   }, []);
 
   useEffect(() => {
-    setProductTotalPrice(() => (quantity * cardPriceNumber));
+    setProductTotalPrice(() => (parseFloat(quantity * cardPriceNumber)).toFixed(2));
     // productTotalPrice ===0 && removeFromCard(product);
     createProduct();
     updateCart();
