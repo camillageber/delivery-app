@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ProductContext from '../context/ProductContext';
 
 function Table({ itens }) {
-  const total = itens.reduce((prev, curr) => prev
-  + parseFloat(curr.productTotalPrice), 0).toFixed(2);
+  const { deleteSelectProduct, total, calculateTotalPrice } = useContext(ProductContext);
 
-  const { deleteSelectProduct } = useContext(ProductContext);
+  useEffect(() => calculateTotalPrice(), [calculateTotalPrice, total]);
 
   const generateRow = () => itens.map((item, index) => (
     <tr key={ index }>

@@ -21,7 +21,7 @@ app.use('/login', authRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
 app.use('/sales', saleRouter);
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 
 app.use(middlewares.error);
 module.exports = app;

@@ -6,7 +6,7 @@ import ProductContext from '../context/ProductContext';
 
 function Checkout() {
   const { generateSelectedProducts, selectedProduct,
-    generateObjSale,
+    generateObjSale, createSale,
   } = useContext(ProductContext);
 
   useEffect(() => { generateSelectedProducts(); generateObjSale(); }, []);
@@ -22,7 +22,7 @@ function Checkout() {
       <button
         type="submit"
         data-testid="customer_checkout__button-submit-order"
-        onClick={ () => registerSale() }
+        onClick={ () => createSale() }
       >
         Finalizar Pedido
       </button>

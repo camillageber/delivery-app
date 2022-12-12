@@ -1,15 +1,22 @@
 const db = require('../database/models');
-const CreateError = require('../utils/createError');
 
 const userService = {
-    getUser: async (email) => {
-        const user = await db.User.findOne({ where: { email } });
-        if (!user) {
-            throw new CreateError('NotFoundError', 'Usuário não encontrado');
-        }
-        return user;
-    },
-    
+  findUser: async (id) => {
+    const user = await db.User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+    return user;
+  },
+
+  findCustomers: async () => {
+    const userAllCustomers = await db.User.findAll({ 
+      where: { role: 'customer' }, attributes: ['name'] });
+    return userAllCustomers;
+  },
+
+  findSellers: async () => {
+    const userAllSellers = await db.User.findAll({ 
+      where: { role: 'seller' }, attributes: ['name'] });
+    return userAllSellers;
+  },
 };
 
 module.exports = userService;

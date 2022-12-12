@@ -8,7 +8,7 @@ import './products.css';
 function Products() {
   const [total, setTotal] = useState(0);
   const [disabledButton, setDisabledButton] = useState(true);
-  const { products } = useContext(ProductContext);
+  const { products, calculateTotalPrice } = useContext(ProductContext);
 
   const totalProducts = () => {
     let calculateTotal = 0;
@@ -22,6 +22,7 @@ function Products() {
 
   useEffect(() => {
     totalProducts();
+    calculateTotalPrice();
   }, []);
 
   useEffect(() => {

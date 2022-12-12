@@ -39,7 +39,7 @@ function Login() {
           navigate('/customer/products');
         });
     } catch (AxiosError) {
-      console.log(AxiosError);
+      console.log(AxiosError.response.data.message);
       setDisplayError(AxiosError.response.data.message);
     }
   };

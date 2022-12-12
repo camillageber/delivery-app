@@ -4,11 +4,19 @@ import ProductContext from '../context/ProductContext';
 function DeliveryAddress() {
   const order = [];
   const { sellers, setUserAddress,
-    setUserAddressNumber } = useContext(ProductContext);
+    setUserAddressNumber, setSelectedSeller } = useContext(ProductContext);
   const orderOptions = sellers;
   useEffect(() => {
     console.log(sellers);
   }, []);
+
+  const handleChangeOptions = ({ target }) => {
+    const { name, value } = target;
+    setSelectedSeller((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="delivery-address-container">
@@ -20,6 +28,7 @@ function DeliveryAddress() {
           name="column"
           id="customer_checkout__select-seller"
           value={ order.column }
+          onChange={ handleChangeOptions }
         >
           {
             orderOptions.map((option, index) => (

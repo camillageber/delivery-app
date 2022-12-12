@@ -17,7 +17,7 @@ const authService = {
         const { name, role } = user;
         const token = generateToken({ id: user.id, email: user.email, name, role });
         const retorno = {
-            token, 
+           token,
             name,
             role,
             email,
