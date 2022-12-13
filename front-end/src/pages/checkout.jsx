@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import DeliveryAddress from '../components/DeliveryAddress';
+import Navigation from '../components/Navigation';
+import Table from '../components/Table';
+import ProductContext from '../context/ProductContext';
 
 function Checkout() {
-  return (<h1>Oi</h1>
+  const { generateObjSale, getSellers,
+    createSale,
+  } = useContext(ProductContext);
+
+  useEffect(() => {
+    generateObjSale(); getSellers();
+  }, []);
+
+  return (
+    <>
+      <Navigation />
+      <h2>Finalizar Pedido</h2>
+      <Table />
+      <DeliveryAddress />
+      <button
+        type="submit"
+        onClick={ createSale }
+        data-testid="customer_checkout__button-submit-order"
+      >
+        Finalizar Pedido
+      </button>
+    </>
   );
 }
 

@@ -13,9 +13,9 @@ const userService = {
   },
 
   findSellers: async () => {
-    const userAllSellers = await db.User.findAll({ 
-      where: { role: 'seller' }, attributes: ['name'] });
-    return userAllSellers;
+    const sellers = await db.User.findAll({ 
+      where: { role: 'seller' }, attributes: { exclude: ['password'] } });
+    return sellers;
   },
 };
 
