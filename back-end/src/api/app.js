@@ -9,7 +9,6 @@ const registerRouter = require('../routers/registerRouter');
 const productRouter = require('../routers/productRouter');
 const saleRouter = require('../routers/saleRouter');
 const userRouter = require('../routers/userRouter');
-
 const middlewares = require('../middlewares');
 
 const app = express();

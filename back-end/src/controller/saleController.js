@@ -5,11 +5,16 @@ const saleController = {
     const sale = await saleService.createSale(req.body);
     res.status(201).json(sale);
   },
+  
+  getSellers: async (req, res) => {
+    const sellers = await saleService.getSellers();
+    res.status(200).json(sellers);
+  },
 
   findAllSales: async (req, res) => {
     const { id } = res.data;
     const sales = await saleService.findAllSales(id);
-    res.states(200).json(sales);
+    res.status(200).json(sales);
   },
 
   saleById: async (req, res) => {

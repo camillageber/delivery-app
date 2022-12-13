@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ProductContext from '../context/ProductContext';
 
 function DeliveryAddress() {
   const order = [];
-  const orderOptions = [];
+  const { sellers, setUserAddress,
+    setUserAddressNumber, setSelectedSeller } = useContext(ProductContext);
+  const orderOptions = sellers;
+
+  const handleChangeOptions = ({ target }) => {
+    // alterar para id
+    const { name, value } = target;
+    setSelectedSeller(() => ({
+      [name]: value,
+    }));
+  };
 
   return (
     <div className="delivery-address-container">
@@ -14,11 +25,12 @@ function DeliveryAddress() {
           name="column"
           id="customer_checkout__select-seller"
           value={ order.column }
+          onChange={ handleChangeOptions }
         >
           {
-            orderOptions.map((option) => (
-              <option key={ option } value={ option }>
-                {option}
+            orderOptions.map((option, index) => (
+              <option key={ index } value={ option.id } id={ option.id }>
+                {option.name}
               </option>))
           }
 
@@ -27,10 +39,12 @@ function DeliveryAddress() {
       <input
         type="text"
         data-testid="customer_checkout__input-address"
+        onChange={ ({ target }) => setUserAddress(target.value) }
       />
       <input
         type="text"
         data-testid="customer_checkout__input-address-number"
+        onChange={ ({ target }) => setUserAddressNumber(target.value) }
       />
     </div>
   );

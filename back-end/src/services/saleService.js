@@ -24,6 +24,12 @@ const saleService = {
     return { saleId: sale.id };
   },
 
+  getSellers: async () => {
+    const sellers = await db.User.findAll({ 
+      where: { role: 'seller' }, attributes: { exclude: ['password'] } });
+    return sellers;
+  },
+  
   // https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
   findAllSales: async (id) => {
     const sales = await db.Sale.findAll({
