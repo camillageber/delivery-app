@@ -5,24 +5,24 @@ import Table from '../components/Table';
 import ProductContext from '../context/ProductContext';
 
 function Checkout() {
-  const { generateSelectedProducts, selectedProduct,
-    generateObjSale, createSale,
+  const { generateObjSale, getSellers,
+    createSale,
   } = useContext(ProductContext);
 
-  useEffect(() => { generateSelectedProducts(); generateObjSale(); }, []);
+  useEffect(() => {
+    generateObjSale(); getSellers();
+  }, []);
 
   return (
     <>
       <Navigation />
       <h2>Finalizar Pedido</h2>
-      <Table
-        itens={ selectedProduct }
-      />
+      <Table />
       <DeliveryAddress />
       <button
         type="submit"
         data-testid="customer_checkout__button-submit-order"
-        onClick={ () => createSale() }
+        onClick={ createSale }
       >
         Finalizar Pedido
       </button>

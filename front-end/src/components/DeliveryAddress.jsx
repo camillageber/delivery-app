@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import ProductContext from '../context/ProductContext';
 
 function DeliveryAddress() {
@@ -6,14 +6,10 @@ function DeliveryAddress() {
   const { sellers, setUserAddress,
     setUserAddressNumber, setSelectedSeller } = useContext(ProductContext);
   const orderOptions = sellers;
-  useEffect(() => {
-    console.log(sellers);
-  }, []);
 
   const handleChangeOptions = ({ target }) => {
     const { name, value } = target;
-    setSelectedSeller((prevState) => ({
-      ...prevState,
+    setSelectedSeller(() => ({
       [name]: value,
     }));
   };

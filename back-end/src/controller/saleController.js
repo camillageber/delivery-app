@@ -14,7 +14,7 @@ const saleController = {
   findAllSales: async (req, res) => {
     const { id } = res.data;
     const sales = await saleService.findAllSales(id);
-    res.states(200).json(sales);
+    res.status(200).json(sales);
   },
 
   saleById: async (req, res) => {

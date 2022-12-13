@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
-import ProductContext from './ProductContext';
 import httpRequest from '../axios/config';
+import ProductContext from './ProductContext';
 
 export default function ProductProvider({ children }) {
   const [products, setProducts] = useState([]);
@@ -40,41 +40,46 @@ export default function ProductProvider({ children }) {
     };
   };
 
-  const createSale = async () => {
-    const newSale = generateObjSale();
-    await httpRequest.post('/sales', newSale)
-      .then(({ data }) => navigate(`/customer/orders/${data.saleId}`))
-      .catch((AxiosError) => console.log(AxiosError.response.data.message));
+  const getSellers = async () => {
+    await httpRequest.get('/users/seller')
+      .then(({ data }) => setSellers(data));
   };
 
-  const getSellers = async () => {
-    await httpRequest.get('/sales/sellers')
-      .then(({ data }) => setSellers(data));
+  const genNewSelectedProductsOBJ = (obj) => {
+    const findObj = products.find((product) => product.id === obj.id);
+    if (findObj) {
+      const { name, price } = findObj;
+
+      return { ...obj, name, price };
+    }
+  };
+
+  const generateSelectedProducts = () => {
+    const selectedProducts = JSON.parse(localStorage.getItem('productCar'));
+    const newSelectedProducts = selectedProducts.map((selected) => {
+      const newProduct = genNewSelectedProductsOBJ((selected));
+      return newProduct;
+    });
+    setSelectedProduct(newSelectedProducts);
+  };
+
+  const createSale = async (event) => {
+    event.preventDefault();
+    const newSale = generateObjSale();
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const { data } = await httpRequest.post(
+      '/sales',
+      newSale,
+      { headers: { authorization: token } },
+    )
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
+    navigate(`/customer/orders/${data.saleId}`);
   };
 
   useEffect(() => {
     fetchProducts();
     getSellers();
   }, []);
-
-  const genNewSelectedProductsOBJ = (obj) => {
-    const findObj = products.find((product) => product.id === obj.id);
-    const { name, price } = findObj;
-
-    return { ...obj, name, price };
-  };
-
-  const generateSelectedProducts = () => {
-    const selectedProducts = JSON.parse(localStorage.getItem('productCar'));
-    let newSelectedProducts = [];
-    if (selectedProducts) {
-      newSelectedProducts = selectedProducts.map((selected) => {
-        const newProduct = genNewSelectedProductsOBJ((selected));
-        return newProduct;
-      });
-    }
-    return setSelectedProduct(newSelectedProducts);
-  };
 
   const deleteSelectProduct = ({ target }) => {
     const { id } = target;
@@ -83,9 +88,13 @@ export default function ProductProvider({ children }) {
   };
 
   const calculateTotalPrice = () => {
-    const totalPrice = selectedProduct.reduce((prev, curr) => prev
+    let totalPrice = 0;
+    const findUndefined = selectedProduct.some((e) => typeof e === 'undefined');
+    if (!findUndefined) {
+      totalPrice = selectedProduct.reduce((prev, curr) => prev
   + parseFloat(curr.productTotalPrice), 0).toFixed(2);
-    setTotalPrice(totalPrice);
+      setTotalPrice(totalPrice);
+    }
   };
 
   useEffect(() => {
@@ -104,6 +113,7 @@ export default function ProductProvider({ children }) {
     setSelectedSeller,
     total,
     calculateTotalPrice,
+    getSellers,
     createSale,
   };
 
@@ -115,5 +125,5 @@ export default function ProductProvider({ children }) {
 }
 
 ProductProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  children: PropTypes.shape().isRequired,
 };

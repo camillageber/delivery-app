@@ -5,12 +5,13 @@ const saleController = require('../controller/saleController');
 const router = express.Router();
 
 router.post('/', tokenMiddleware, saleController.createSale);
-router.get('/sellers', tokenMiddleware, saleController.getSellers);
 
 router.get('/', tokenMiddleware, saleController.findAllSales);
 
 router.get('/:id', tokenMiddleware, saleController.saleById);
 
 router.put('/:id', tokenMiddleware, saleController.updateSale);
+
+
 
 module.exports = router;

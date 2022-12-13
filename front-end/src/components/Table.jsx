@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import ProductContext from '../context/ProductContext';
 
-function Table({ itens }) {
-  const { deleteSelectProduct, total, calculateTotalPrice } = useContext(ProductContext);
+function Table() {
+  const { selectedProduct,
+    deleteSelectProduct, total, calculateTotalPrice } = useContext(ProductContext);
 
   useEffect(() => calculateTotalPrice(), [calculateTotalPrice, total]);
 
-  const generateRow = () => itens.map((item, index) => (
+  const generateRow = () => selectedProduct.map((item, index) => (
     <tr key={ index }>
       <td
         data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
@@ -58,24 +58,26 @@ function Table({ itens }) {
     <div>
       <table border="1">
         <thead>
-          <th>
-            Item
-          </th>
-          <th>
-            Descrição
-          </th>
-          <th>
-            Quantidade
-          </th>
-          <th>
-            Valor Unitário
-          </th>
-          <th>
-            Sub-total
-          </th>
-          <th>
-            Remover Item
-          </th>
+          <tr>
+            <th>
+              Item
+            </th>
+            <th>
+              Descrição
+            </th>
+            <th>
+              Quantidade
+            </th>
+            <th>
+              Valor Unitário
+            </th>
+            <th>
+              Sub-total
+            </th>
+            <th>
+              Remover Item
+            </th>
+          </tr>
         </thead>
         <tbody>
           {
@@ -94,13 +96,5 @@ function Table({ itens }) {
     </div>
   );
 }
-
-Table.propTypes = {
-  itens: PropTypes.shape(),
-};
-
-Table.defaultProps = {
-  itens: [],
-};
 
 export default Table;

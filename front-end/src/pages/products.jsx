@@ -8,7 +8,8 @@ import './products.css';
 function Products() {
   const [total, setTotal] = useState(0);
   const [disabledButton, setDisabledButton] = useState(true);
-  const { products, calculateTotalPrice } = useContext(ProductContext);
+  const { products, calculateTotalPrice,
+    generateSelectedProducts } = useContext(ProductContext);
 
   const totalProducts = () => {
     let calculateTotal = 0;
@@ -26,12 +27,16 @@ function Products() {
   }, []);
 
   useEffect(() => {
-    console.log(total);
     if (parseInt(total, 10) === 0) setDisabledButton(true);
     if (parseInt(total, 10) !== 0) setDisabledButton(false);
   }, [total]);
 
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    generateSelectedProducts();
+    navigate('/customer/checkout');
+  };
 
   return (
     <main>
@@ -54,7 +59,7 @@ function Products() {
       <button
         type="submit"
         data-testid="customer_products__button-cart"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ () => handleClick() }
         disabled={ disabledButton }
       >
         <span data-testid="customer_products__checkout-bottom-value">
