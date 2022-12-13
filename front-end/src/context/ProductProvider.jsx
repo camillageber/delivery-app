@@ -20,7 +20,8 @@ export default function ProductProvider({ children }) {
     await httpRequest.get('/products')
       .then(({ data }) => {
         setProducts(data);
-      });
+      })
+      .catch((AxiosError) => console.log(AxiosError));
     // } catch (AxiosError) {
     // console.log(AxiosError);
     // setDisplayError(AxiosError.response.data.message);
@@ -78,7 +79,7 @@ export default function ProductProvider({ children }) {
 
   useEffect(() => {
     fetchProducts();
-    getSellers();
+    /* getSellers(); */
   }, []);
 
   const deleteSelectProduct = ({ target }) => {
@@ -96,10 +97,6 @@ export default function ProductProvider({ children }) {
       setTotalPrice(totalPrice);
     }
   };
-
-  useEffect(() => {
-    if (products.length > 0) generateSelectedProducts();
-  }, [products]);
 
   const valuesContext = {
     products,

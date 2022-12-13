@@ -8,6 +8,7 @@ function DeliveryAddress() {
   const orderOptions = sellers;
 
   const handleChangeOptions = ({ target }) => {
+    // alterar para id
     const { name, value } = target;
     setSelectedSeller(() => ({
       [name]: value,
@@ -28,7 +29,7 @@ function DeliveryAddress() {
         >
           {
             orderOptions.map((option, index) => (
-              <option key={ index } value={ option.name } id={ option.id }>
+              <option key={ index } value={ option.id } id={ option.id }>
                 {option.name}
               </option>))
           }
