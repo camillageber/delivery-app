@@ -4,11 +4,15 @@ const verifyHash = require('../utils/verifyPassword');
 const { generateToken } = require('../utils/tokenManager');
 
 const authService = {
-    login: async (email, password) => {
+    findUser: async (email) => {
         const user = await db.User.findOne({ where: { email } });
         if (!user) {
             throw new CreateError('NotFoundError', 'Usuário não encontrado');
         }
+    },
+
+    login: async (email, password) => {
+        const user = authService.findUser;
         const hashDB = user.password;
         const validLogin = verifyHash(hashDB, password);
         if (!validLogin) {
@@ -21,7 +25,7 @@ const authService = {
             name,
             role,
             email,
-            id: user.id
+            id: user.id,
         };
         return retorno;
     },

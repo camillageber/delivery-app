@@ -12,6 +12,4 @@ router.get('/:id', tokenMiddleware, saleController.saleById);
 
 router.put('/:id', tokenMiddleware, saleController.updateSale);
 
-
-
 module.exports = router;

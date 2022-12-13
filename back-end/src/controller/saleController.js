@@ -6,7 +6,7 @@ const saleController = {
     res.status(201).json(sale);
   },
   
-  getSellers: async(req, res) => {
+  getSellers: async (req, res) => {
     const sellers = await saleService.getSellers();
     res.status(200).json(sellers);
   },

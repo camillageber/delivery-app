@@ -13,7 +13,8 @@ const userService = {
   },
 
   findSellers: async () => {
-    const sellers = await db.User.findAll({ where: { role: "seller"}, attributes: { exclude: ['password'] } });
+    const sellers = await db.User.findAll({ 
+      where: { role: 'seller' }, attributes: { exclude: ['password'] } });
     return sellers;
   },
 };
