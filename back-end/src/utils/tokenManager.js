@@ -4,7 +4,7 @@ require('dotenv/config');
 const CreateError = require('./createError');
 
 const JWT_SECRET = fs.readFileSync('./jwt.evaluation.key',
-            { encoding: 'utf8', flag: 'r' });
+            { encoding: 'utf8' });
 
 const generateToken = (payload) => {
   const token = JWT.sign(payload, JWT_SECRET);
@@ -19,5 +19,4 @@ const validateToken = async (token) => {
   }
   return decoded;
 };
-
 module.exports = { generateToken, validateToken };

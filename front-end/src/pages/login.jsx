@@ -34,12 +34,12 @@ function Login() {
     try {
       await httpRequest.post('/login', { email, password })
         .then(({ data }) => {
-          const { token, name, role } = data;
-          localStorage.setItem('user', JSON.stringify({ token, name, role, email }));
+          const { token, name, role, id } = data;
+          localStorage.setItem('user', JSON.stringify({ token, name, role, email, id }));
           navigate('/customer/products');
         });
     } catch (AxiosError) {
-      console.log(AxiosError);
+      console.log(AxiosError.response.data.message);
       setDisplayError(AxiosError.response.data.message);
     }
   };
