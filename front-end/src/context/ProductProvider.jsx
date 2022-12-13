@@ -11,7 +11,7 @@ export default function ProductProvider({ children }) {
   const [sellers, setSellers] = useState([]);
   const [userAddress, setUserAddress] = useState('');
   const [userAddressNumber, setUserAddressNumber] = useState('');
-  const [selectedSeller, setSelectedSeller] = useState('2');
+  const [selectedSeller, setSelectedSeller] = useState(2);
 
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ export default function ProductProvider({ children }) {
     const { id } = getUserStorage;
     return {
       userId: id,
-      sellerId: selectedSeller,
+      sellerId: +selectedSeller || 2,
       totalPrice: total,
       deliveryAddress: userAddress,
       deliveryNumber: userAddressNumber,
@@ -79,7 +79,6 @@ export default function ProductProvider({ children }) {
 
   useEffect(() => {
     fetchProducts();
-    /* getSellers(); */
   }, []);
 
   const deleteSelectProduct = ({ target }) => {

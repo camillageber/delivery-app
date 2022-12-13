@@ -21,8 +21,8 @@ function Checkout() {
       <DeliveryAddress />
       <button
         type="submit"
-        data-testid="customer_checkout__button-submit-order"
         onClick={ createSale }
+        data-testid="customer_checkout__button-submit-order"
       >
         Finalizar Pedido
       </button>
