@@ -24,7 +24,7 @@ function Products() {
   useEffect(() => {
     totalProducts();
     calculateTotalPrice();
-  }, []);
+  }, [calculateTotalPrice]);
 
   useEffect(() => {
     if (parseInt(total, 10) === 0) setDisabledButton(true);
