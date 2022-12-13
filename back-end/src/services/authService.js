@@ -4,17 +4,12 @@ const verifyHash = require('../utils/verifyPassword');
 const { generateToken } = require('../utils/tokenManager');
 
 const authService = {
-    findUser: async (email) => {
+        login: async (email, password) => {
         const user = await db.User.findOne({ where: { email } });
         if (!user) {
             throw new CreateError('NotFoundError', 'Usuário não encontrado');
         }
-    },
-
-    login: async (email, password) => {
-        const user = authService.findUser;
-        const hashDB = user.password;
-        const validLogin = verifyHash(hashDB, password);
+        const validLogin = verifyHash(user.password, password);
         if (!validLogin) {
             throw new CreateError('UnauthorizedError', 'Email ou senha inválidos');
         }
