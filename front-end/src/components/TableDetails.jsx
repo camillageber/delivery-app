@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
+import ProductContext from '../context/ProductContext';
 
-function TableDetails({ itens }) {
-  const total = itens.reduce((prev, curr) => prev
-  + parseFloat(curr.productTotalPrice), 0).toFixed(2);
+function TableDetails() {
+  const { selectedProduct, total, calculateTotalPrice } = useContext(ProductContext);
 
-  const generateRow = () => itens.map((item, index) => (
+  useEffect(() => calculateTotalPrice(), [calculateTotalPrice, total]);
+
+  const generateRow = () => selectedProduct.map((item, index) => (
     <tr key={ index }>
       <td
         data-testid={ `customer_details__element-order-table-item-number-${index}` }
@@ -78,13 +79,5 @@ function TableDetails({ itens }) {
     </div>
   );
 }
-
-TableDetails.propTypes = {
-  itens: PropTypes.shape(),
-};
-
-TableDetails.defaultProps = {
-  itens: [],
-};
 
 export default TableDetails;
