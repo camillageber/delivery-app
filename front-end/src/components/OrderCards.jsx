@@ -1,39 +1,41 @@
 import React from 'react';
-// import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function OrderCard(orderId, orderStatus, orderDate, orderValue) {
+function OrderCard({ id, totalPrice, saleDate, status }) {
   return (
-    <div>
-      <p
-        data-testid={`customer_orders__element-order-id-${orderId}`}
-      >
-        {`Pedido ${orderId}`}
-      </p>
-      <p
-        data-testid={`customer_orders__element-delivery-status-${orderId}`}
-      >
-        {orderStatus}
-      </p>
-      <p
-        data-testid={`customer_orders__element-order-date-${orderId}`}
-      >
-        {orderDate}
-      </p>
-      <p
-        data-testid={`customer_orders__element-card-price-${orderId}`}
-      >
-        {orderValue}
-      </p>
-    </div>
+    <Link to={ `customer/orders/${id}` }>
+      <div>
+        <p
+          data-testid={ `customer_orders__element-order-id-${id}` }
+        >
+          {`Pedido ${id}`}
+        </p>
+        <p
+          data-testid={ `customer_orders__element-delivery-status-${id}` }
+        >
+          {status}
+        </p>
+        <p
+          data-testid={ `customer_orders__element-order-date-${id}` }
+        >
+          {saleDate}
+        </p>
+        <p
+          data-testid={ `customer_orders__element-card-price-${id}` }
+        >
+          {totalPrice}
+        </p>
+      </div>
+    </Link>
   );
 }
 
 OrderCard.propTypes = {
-  orderId: PropTypes.number,
-  orderStatus: PropTypes.string,
-  orderDate: PropTypes.string,
-  orderValue: PropTypes.string,
+  id: PropTypes.number,
+  totalPrice: PropTypes.number,
+  saleDate: PropTypes.string,
+  status: PropTypes.string,
 }.isRequired;
 
 export default OrderCard;

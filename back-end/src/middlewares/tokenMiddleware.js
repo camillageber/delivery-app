@@ -7,11 +7,10 @@ const handleAuth = async (req, res, next) => {
     return res.status(401).json({ message: 'Token não encontrado' });
   }
 
-  const decoded = await validateToken(token);
-  if (!decoded) {
-    return res.status(401).json({ message: 'Token inválido' });
-  }
-  res.data = decoded;
+  const user = await validateToken(token);
+  console.log(user, 'user');
+  
+  res.user = user;
   return next();
 };
 

@@ -13,6 +13,19 @@ export default function ProductProvider({ children }) {
   const [userAddressNumber, setUserAddressNumber] = useState('');
   const [selectedSeller, setSelectedSeller] = useState(2);
   const [orders, setOrders] = useState([]);
+
+  const fetchOrders = async () => {
+    const { token, id } = JSON.parse(localStorage.getItem('user'));
+    console.log('token: ', token);
+    console.log('id: ', id);
+    const { data } = await httpRequest.get(
+      '/sales',
+      { headers: { Authorization: token } },
+    )
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
+    setOrders(data);
+  };
+
   const navigate = useNavigate();
 
   const fetchProducts = async () => {
@@ -25,16 +38,6 @@ export default function ProductProvider({ children }) {
     // } catch (AxiosError) {
     // console.log(AxiosError);
     // setDisplayError(AxiosError.response.data.message);
-  };
-
-  const fetchOrders = async () => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    await httpRequest.get('/sales', {
-      headers: { authorization: token },
-    })
-      .then(({ data }) => {
-        setOrders(data);
-      }).catch((AxiosError) => console.log(AxiosError));
   };
 
   const generateObjSale = () => {
@@ -125,8 +128,8 @@ export default function ProductProvider({ children }) {
     calculateTotalPrice,
     getSellers,
     createSale,
-    fetchOrders,
     orders,
+    fetchOrders,
   };
 
   return (
