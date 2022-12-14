@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import ProductContext from '../context/ProductContext';
 
-function Table({ itens }) {
-  const total = itens.reduce((prev, curr) => prev
-  + parseFloat(curr.productTotalPrice), 0).toFixed(2);
+function Table() {
+  const { selectedProduct,
+    deleteSelectProduct, total, calculateTotalPrice } = useContext(ProductContext);
 
-  const { deleteSelectProduct } = useContext(ProductContext);
+  useEffect(() => calculateTotalPrice(), [calculateTotalPrice, total]);
 
-  const generateRow = () => itens.map((item, index) => (
+  const generateRow = () => selectedProduct.map((item, index) => (
     <tr key={ index }>
       <td
         data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
@@ -59,24 +58,26 @@ function Table({ itens }) {
     <div>
       <table border="1">
         <thead>
-          <th>
-            Item
-          </th>
-          <th>
-            Descrição
-          </th>
-          <th>
-            Quantidade
-          </th>
-          <th>
-            Valor Unitário
-          </th>
-          <th>
-            Sub-total
-          </th>
-          <th>
-            Remover Item
-          </th>
+          <tr>
+            <th>
+              Item
+            </th>
+            <th>
+              Descrição
+            </th>
+            <th>
+              Quantidade
+            </th>
+            <th>
+              Valor Unitário
+            </th>
+            <th>
+              Sub-total
+            </th>
+            <th>
+              Remover Item
+            </th>
+          </tr>
         </thead>
         <tbody>
           {
@@ -95,13 +96,5 @@ function Table({ itens }) {
     </div>
   );
 }
-
-Table.propTypes = {
-  itens: PropTypes.shape(),
-};
-
-Table.defaultProps = {
-  itens: [],
-};
 
 export default Table;

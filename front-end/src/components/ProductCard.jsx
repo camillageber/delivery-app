@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 function ProductCard({ cardId, cardName, cardImage, cardPrice, updateCart }) {
   const [quantity, setQuantity] = useState();
   const [productTotalPrice, setProductTotalPrice] = useState(0);
-
   const checkquantityonLC = () => {
     const productCard = JSON.parse(localStorage.getItem('productCar'));
     if (!productCard) return setQuantity(0);
