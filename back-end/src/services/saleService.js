@@ -7,7 +7,7 @@ const saleService = {
     const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber } = orderSale;
     const { productList } = orderSale;
 
-      const sale = await db.Sale.create({
+    const sale = await db.Sale.create({
       userId,
       sellerId,
       totalPrice,
@@ -25,11 +25,12 @@ const saleService = {
   },
 
   getSellers: async () => {
-    const sellers = await db.User.findAll({ 
-      where: { role: 'seller' }, attributes: { exclude: ['password'] } });
+    const sellers = await db.User.findAll({
+      where: { role: 'seller' }, attributes: { exclude: ['password'] }
+    });
     return sellers;
   },
-  
+
   // https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
   findAllSales: async (id) => {
     const sales = await db.Sale.findAll({
@@ -40,8 +41,9 @@ const saleService = {
   },
 
   saleById: async (id) => {
-    const sale = await db.Sale.findOne({ 
-      where: { id }, includes: [{ model: db.Product, as: 'products' }] });
+    const sale = await db.Sale.findOne({
+      where: { id }, includes: [{ model: db.Product, as: 'products' }]
+    });
     return sale;
   },
 
