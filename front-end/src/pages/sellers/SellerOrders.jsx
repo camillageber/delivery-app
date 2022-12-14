@@ -7,9 +7,35 @@ function SellerOrders() {
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
-    const data = await httpRequest.get('/sales');
+    const { token, id } = JSON.parse(localStorage.getItem('user'));
+    console.log('token: ', token);
+    console.log('id: ', id);
+    const { data } = await httpRequest.get(
+      '/sales',
+      { id },
+      { headers: { authorization: token } },
+    )
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
     setOrders(data);
   };
+
+  // const getOrder = async () => {
+  //   const { data } = await httpRequest.get(
+  //     '/sales',
+  //     { id },
+  //     { headers: { authorization: token } },
+  //   );
+  //   return data;
+  // };
+
+  // const fetchOrders = async () => {
+  //   const { token, id } = JSON.parse(localStorage.getItem('user'));
+  //   console.log('token: ', token);
+  //   console.log('id: ', id);
+  //   const data = getOrder();
+  //   console.log('data :', data);
+  //   setOrders(data);
+  // };
 
   useEffect(() => {
     fetchOrders();
