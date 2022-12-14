@@ -13,13 +13,13 @@ function App() {
   return (
     <ProductProvider>
       <Routes>
-        <Route exact path="/" element={ <Navigate replace to="/login" /> } />
-        <Route path="/login" element={ <Login /> } />
-        <Route path="/register" element={ <Register /> } />
-        <Route exact path="/customer/products" element={ <Products /> } />
-        <Route exact path="/customer/checkout" element={ <Checkout /> } />
-      <Route exact path="/customer/orders" element={ <MyOrders /> } />
-        <Route exact path="/customer/orders/:id" element={ <OrderDetails /> } />
+        <Route exact path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route exact path="/customer/products" element={<Products />} />
+        <Route exact path="/customer/checkout" element={<Checkout />} />
+        <Route exact path="/customer/orders" element={<MyOrders />} />
+        <Route exact path="/customer/orders/:id" element={<OrderDetails />} />
       </Routes>
     </ProductProvider>
   );

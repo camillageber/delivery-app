@@ -12,7 +12,7 @@ export default function ProductProvider({ children }) {
   const [userAddress, setUserAddress] = useState('');
   const [userAddressNumber, setUserAddressNumber] = useState('');
   const [selectedSeller, setSelectedSeller] = useState(2);
-
+  const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
 
   const fetchProducts = async () => {
@@ -25,6 +25,16 @@ export default function ProductProvider({ children }) {
     // } catch (AxiosError) {
     // console.log(AxiosError);
     // setDisplayError(AxiosError.response.data.message);
+  };
+
+  const fetchOrders = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    await httpRequest.get('/sales', {
+      headers: { authorization: token },
+    })
+      .then(({ data }) => {
+        setOrders(data);
+      }).catch((AxiosError) => console.log(AxiosError));
   };
 
   const generateObjSale = () => {
@@ -74,11 +84,15 @@ export default function ProductProvider({ children }) {
       { headers: { authorization: token } },
     )
       .catch((AxiosError) => console.log(AxiosError.response.data.message));
-    navigate(`/customer/orders/${data.saleId}`);
+    navigate(`/ customer / orders / ${data.saleId}`);
   };
 
   useEffect(() => {
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    fetchOrders();
   }, []);
 
   const deleteSelectProduct = ({ target }) => {
@@ -92,7 +106,7 @@ export default function ProductProvider({ children }) {
     const findUndefined = selectedProduct.some((e) => typeof e === 'undefined');
     if (!findUndefined) {
       totalPrice = selectedProduct.reduce((prev, curr) => prev
-  + parseFloat(curr.productTotalPrice), 0).toFixed(2);
+        + parseFloat(curr.productTotalPrice), 0).toFixed(2);
       setTotalPrice(totalPrice);
     }
   };
@@ -111,11 +125,13 @@ export default function ProductProvider({ children }) {
     calculateTotalPrice,
     getSellers,
     createSale,
+    fetchOrders,
+    orders,
   };
 
   return (
-    <ProductContext.Provider value={ useMemo(() => (valuesContext)) }>
-      { children }
+    <ProductContext.Provider value={useMemo(() => (valuesContext))}>
+      {children}
     </ProductContext.Provider>
   );
 }
