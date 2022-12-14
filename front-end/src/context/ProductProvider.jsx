@@ -12,6 +12,19 @@ export default function ProductProvider({ children }) {
   const [userAddress, setUserAddress] = useState('');
   const [userAddressNumber, setUserAddressNumber] = useState('');
   const [selectedSeller, setSelectedSeller] = useState(2);
+  const [orders, setOrders] = useState([]);
+
+  const fetchOrders = async () => {
+    const { token, id } = JSON.parse(localStorage.getItem('user'));
+    console.log('token: ', token);
+    console.log('id: ', id);
+    const { data } = await httpRequest.get(
+      '/sales',
+      { headers: { Authorization: token } },
+    )
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
+    setOrders(data);
+  };
 
   const navigate = useNavigate();
 
@@ -111,6 +124,9 @@ export default function ProductProvider({ children }) {
     calculateTotalPrice,
     getSellers,
     createSale,
+    orders,
+    fetchOrders,
+    setOrders,
   };
 
   return (
