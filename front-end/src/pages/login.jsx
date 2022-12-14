@@ -36,7 +36,11 @@ function Login() {
         .then(({ data }) => {
           const { token, name, role, id } = data;
           localStorage.setItem('user', JSON.stringify({ token, name, role, email, id }));
-          navigate('/customer/products');
+          if (role === 'customer') {
+            navigate('/customer/products');
+          } else {
+            navigate('/seller/orders');
+          }
         });
     } catch (AxiosError) {
       console.log(AxiosError.response.data.message);
