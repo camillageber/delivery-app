@@ -10,6 +10,7 @@ import ProductProvider from './context/ProductProvider';
 import OrderDetails from './pages/orderDetails';
 import SellerOrderDetails from './pages/sellers/SellerOrderDetails';
 import MyOrders from './pages/myOrders';
+import AdminManagement from './pages/admin/AdminManagement';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/customer/orders/:id" element={ <OrderDetails /> } />
         <Route exact path="/seller/orders" element={ <SellerOrders /> } />
         <Route exact path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
+        <Route exact path="/admin/manage" element={ <AdminManagement /> } />
       </Routes>
     </ProductProvider>
   );

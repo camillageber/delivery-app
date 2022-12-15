@@ -40,10 +40,16 @@ function Login() {
         .then(({ data }) => {
           const { token, name, role, id } = data;
           localStorage.setItem('user', JSON.stringify({ token, name, role, email, id }));
-          if (role === 'customer') {
-            navigate('/customer/products');
-          } else {
+          switch (role) {
+          case 'administrator':
+            navigate('/admin/manage');
+            break;
+          case 'seller':
             navigate('/seller/orders');
+            break;
+          default:
+            navigate('/customer/products');
+            break;
           }
         });
     } catch (AxiosError) {
