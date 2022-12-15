@@ -18,20 +18,19 @@ function NavigationSeller() {
 
   return (
     <nav className="nav-container">
-      <button
+      <input
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
+        value="Pedidos"
         onClick={ () => navigate('/customer/products') }
-      >
-        <p>Pedidos</p>
-      </button>
-      <button
+      />
+      <input
         data-testid="customer_products__element-navbar-user-full-name"
         type="button"
-        onClick={ () => navigate('/customer/') }
-      >
-        <p>{nameDisplay}</p>
-      </button>
+        value={ nameDisplay }
+        onClick={ () => navigate('/seller/orders') }
+
+      />
 
       <input
         data-testid="customer_products__element-navbar-link-logout"
