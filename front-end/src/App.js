@@ -6,7 +6,7 @@ import Products from './pages/products';
 import Register from './pages/register';
 import Checkout from './pages/checkout';
 import SellerOrders from './pages/sellers/SellerOrders';
-import ProductProvider from './context/ProductContext';
+import ProductProvider from './context/ProductProvider';
 import OrderDetails from './pages/orderDetails';
 import SellerOrderDetails from './pages/sellers/SellerOrderDetails';
 import MyOrders from './pages/myOrders';
