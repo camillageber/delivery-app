@@ -9,19 +9,17 @@ function Products() {
   const [total, setTotal] = useState(0);
   const [disabledButton, setDisabledButton] = useState(true);
   const { products, calculateTotalPrice,
-    generateSelectedProducts, setLoginCount } = useContext(ProductContext);
+    generateSelectedProducts } = useContext(ProductContext);
 
   const totalProducts = () => {
     let calculateTotal = 0;
     const cart = JSON.parse(localStorage.getItem('productCar'));
     if (cart) {
       calculateTotal = (cart.reduce((prev, curr) => prev
-      + parseFloat(curr.productTotalPrice), 0)).toFixed(2);
+        + parseFloat(curr.productTotalPrice), 0)).toFixed(2);
       setTotal(calculateTotal);
     }
   };
-
-  useEffect(() => setLoginCount(1), []);
 
   useEffect(() => {
     totalProducts();
@@ -46,17 +44,17 @@ function Products() {
         data-testid="customer_products__element-navbar-link-products"
       />
       <section className="products-cards-render-section">
-        { products
-        && products.map(({ id, name, urlImage, price }, index) => (
-          <ProductCard
-            key={ index }
-            cardId={ id }
-            cardName={ name }
-            cardImage={ urlImage }
-            cardPrice={ price }
-            updateCart={ () => totalProducts() }
-          />
-        ))}
+        {products
+          && products.map(({ id, name, urlImage, price }, index) => (
+            <ProductCard
+              key={ index }
+              cardId={ id }
+              cardName={ name }
+              cardImage={ urlImage }
+              cardPrice={ price }
+              updateCart={ () => totalProducts() }
+            />
+          ))}
       </section>
       <button
         type="submit"
@@ -65,7 +63,7 @@ function Products() {
         disabled={ disabledButton }
       >
         <span data-testid="customer_products__checkout-bottom-value">
-          { `${total.toString().replace(/\./, ',')}` }
+          {`${total.toString().replace(/\./, ',')}`}
         </span>
 
       </button>
