@@ -13,7 +13,7 @@ const saleController = {
   },
 
   findAllSales: async (req, res) => {
-    const { id } = req.body;
+    const { id } = res.user;
     const sales = await saleService.findAllSales(id);
     res.status(200).json(sales);
   },

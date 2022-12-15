@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../Navigation.css';
 
 function NavigationSeller() {
@@ -9,24 +9,37 @@ function NavigationSeller() {
     setName(name);
   }, [nameDisplay]);
 
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
   return (
     <nav className="nav-container">
-      <section
+      <input
         data-testid="customer_products__element-navbar-link-orders"
-      >
-        <a href="/customer/products">Pedidos</a>
-      </section>
-      <section
+        type="button"
+        value="Pedidos"
+        onClick={ () => navigate('/customer/products') }
+      />
+      <input
         data-testid="customer_products__element-navbar-user-full-name"
-      >
-        <a href="/customer/">{nameDisplay}</a>
-      </section>
-      <Link
+        type="button"
+        value={ nameDisplay }
+        onClick={ () => navigate('/seller/orders') }
+
+      />
+
+      <input
         data-testid="customer_products__element-navbar-link-logout"
-        to="/login"
-      >
-        Sair
-      </Link>
+        id="logout"
+        type="button"
+        value="Sair"
+        onClick={ logout }
+      />
+
     </nav>
   );
 }
