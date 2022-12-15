@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Navigation.css';
 // import NavComponents from './NavComponents';
 
@@ -9,6 +9,13 @@ function Navigation() {
     const { name } = JSON.parse(localStorage.getItem('user'));
     setName(name);
   }, [nameDisplay]);
+
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    navigate('/');
+    localStorage.clear();
+  };
 
   return (
     <nav className="nav-container">
@@ -27,12 +34,14 @@ function Navigation() {
       >
         <a href="/customer/">{nameDisplay}</a>
       </section>
-      <Link
+      <button
+        type="button"
         data-testid="customer_products__element-navbar-link-logout"
-        to="/login"
+        onClick={ logOut }
       >
         Sair
-      </Link>
+      </button>
+
     </nav>
   );
 }

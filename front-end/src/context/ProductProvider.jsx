@@ -14,7 +14,7 @@ export default function ProductProvider({ children }) {
   const [selectedSeller, setSelectedSeller] = useState(2);
   const [orders, setOrders] = useState([]);
   const [orderDetails, setOrderDetails] = useState([]);
-
+  const [loginCount, setLoginCount] = useState(localStorage.getItem('user') || false);
   const fetchOrders = async () => {
     const { token, id } = JSON.parse(localStorage.getItem('user'));
     console.log('token: ', token);
@@ -128,7 +128,7 @@ export default function ProductProvider({ children }) {
     const findUndefined = selectedProduct.some((e) => typeof e === 'undefined');
     if (!findUndefined) {
       totalPrice = selectedProduct.reduce((prev, curr) => prev
-  + parseFloat(curr.productTotalPrice), 0).toFixed(2);
+        + parseFloat(curr.productTotalPrice), 0).toFixed(2);
       setTotalPrice(totalPrice);
     }
   };
@@ -149,14 +149,15 @@ export default function ProductProvider({ children }) {
     createSale,
     orders,
     fetchOrders,
-    setOrders,
     fetchSalesDetailsById,
     orderDetails,
+    loginCount,
+    setLoginCount,
   };
 
   return (
     <ProductContext.Provider value={ useMemo(() => (valuesContext)) }>
-      { children }
+      {children}
     </ProductContext.Provider>
   );
 }

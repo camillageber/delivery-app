@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import isLoginValid from '../validations/loginValidation';
 import httpRequest from '../axios/config';
+import ProductContext from '../context/ProductContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayError, setDisplayError] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const { loginCount } = useContext(ProductContext);
 
   useEffect(() => {
     const valid = isLoginValid(email, password);
@@ -16,9 +19,10 @@ function Login() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.removeItem('user');
-  });
+  const checkIfTokenExists = () => {
+    if (loginCount) return navigate('/customer/products');
+  };
+  useEffect(() => checkIfTokenExists(), []);
   // const loginSubmit = async (event) => {
   //   event.preventDefault();
   //   httpRequest.post('/login', { email, password })
