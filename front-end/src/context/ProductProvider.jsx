@@ -133,7 +133,7 @@ export default function ProductProvider({ children }) {
   };
 
   return (
-    <ProductContext.Provider value={useMemo(() => (valuesContext))}>
+    <ProductContext.Provider value={ useMemo(() => (valuesContext)) }>
       {children}
     </ProductContext.Provider>
   );
