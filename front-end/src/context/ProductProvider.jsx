@@ -48,7 +48,7 @@ export default function ProductProvider({ children }) {
     return name;
   };
 
-  const fetchSalesById = async (saleId) => {
+  const fetchSalesDetailsById = async (saleId) => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     await httpRequest.get(
       `/sales/${saleId}`,
@@ -150,7 +150,7 @@ export default function ProductProvider({ children }) {
     orders,
     fetchOrders,
     setOrders,
-    fetchSalesById,
+    fetchSalesDetailsById,
     orderDetails,
   };
 

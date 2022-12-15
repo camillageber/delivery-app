@@ -7,9 +7,9 @@ import TableDetails from '../components/TableDetails';
 
 function OrderDetails() {
   const params = useParams();
-  const { fetchSalesById, orderDetails } = useContext(ProductContext);
+  const { fetchSalesDetailsById, orderDetails } = useContext(ProductContext);
   useEffect(() => {
-    fetchSalesById(parseInt(params.id, 10));
+    fetchSalesDetailsById(parseInt(params.id, 10));
     console.log(orderDetails);
   }, []);
   return (

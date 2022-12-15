@@ -24,14 +24,14 @@ function DetailsHeader() {
         {`${orderDetails[0]?.saleDate}`}
       </h4>
       <h4
-        data-testid="customer_order_details__element
-            -order-details-label-delivery-status"
+        data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
         {`${orderDetails[0]?.status}`}
       </h4>
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
+        disabled
       >
         Marcar como Entregue
       </button>
