@@ -21,7 +21,6 @@ function SellerOrders() {
           key={ order.id }
           { ...order }
         />))}
-        <p>Olá mundo</p>
       </main>
 
     </div>
