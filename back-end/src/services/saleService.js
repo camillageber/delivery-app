@@ -26,7 +26,7 @@ const saleService = {
 
   getSellers: async () => {
     const sellers = await db.User.findAll({
-      where: { role: 'seller' }, attributes: { exclude: ['password'] }
+      where: { role: 'seller' }, attributes: { exclude: ['password'] },
     });
     return sellers;
   },
@@ -42,7 +42,7 @@ const saleService = {
 
   saleById: async (id) => {
     const sale = await db.Sale.findOne({
-      where: { id }, includes: [{ model: db.Product, as: 'products' }]
+      where: { id }, includes: [{ model: db.Product, as: 'products' }],
     });
     return sale;
   },
