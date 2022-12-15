@@ -9,7 +9,7 @@ function Products() {
   const [total, setTotal] = useState(0);
   const [disabledButton, setDisabledButton] = useState(true);
   const { products, calculateTotalPrice,
-    generateSelectedProducts } = useContext(ProductContext);
+    generateSelectedProducts, setLoginCount } = useContext(ProductContext);
 
   const totalProducts = () => {
     let calculateTotal = 0;
@@ -20,6 +20,8 @@ function Products() {
       setTotal(calculateTotal);
     }
   };
+
+  useEffect(() => setLoginCount(1), []);
 
   useEffect(() => {
     totalProducts();

@@ -11,19 +11,19 @@ function MyOrders() {
   }, []);
 
   return (
-    <main>
-      <header>
-        <Navigation />
-      </header>
-      <section className="products-cards-render-section">
-        {orders.map((order) => (
-          <OrderCards
-            key={ order.id }
-            { ...order }
-          />
-        ))}
-      </section>
-    </main>
+    <>
+      <Navigation />
+      <main>
+        <section className="products-cards-render-section">
+          {orders.map((order) => (
+            <OrderCards
+              key={ order.id }
+              { ...order }
+            />
+          ))}
+        </section>
+      </main>
+    </>
   );
 }
 

@@ -14,7 +14,7 @@ export default function ProductProvider({ children }) {
   const [selectedSeller, setSelectedSeller] = useState(2);
   const [orders, setOrders] = useState([]);
   const [orderDetails, setOrderDetails] = useState([]);
-
+  const [loginCount, setLoginCount] = useState(localStorage.getItem('user') || false);
   const fetchOrders = async () => {
     const { token, id } = JSON.parse(localStorage.getItem('user'));
     console.log('token: ', token);
@@ -151,6 +151,8 @@ export default function ProductProvider({ children }) {
     fetchOrders,
     fetchSalesDetailsById,
     orderDetails,
+    loginCount,
+    setLoginCount,
   };
 
   return (

@@ -16,8 +16,8 @@ function App() {
     <ProductProvider>
       <Routes>
         <Route exact path="/" element={ <Navigate replace to="/login" /> } />
-        <Route path="/login" element={ <Login /> } />
-        <Route path="/register" element={ <Register /> } />
+        <Route exact path="/login" element={ <Login /> } />
+        <Route exact path="/register" element={ <Register /> } />
         <Route exact path="/customer/products" element={ <Products /> } />
         <Route exact path="/customer/checkout" element={ <Checkout /> } />
         <Route exact path="/customer/orders" element={ <MyOrders /> } />
