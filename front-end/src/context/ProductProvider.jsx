@@ -110,7 +110,7 @@ export default function ProductProvider({ children }) {
       { headers: { authorization: token } },
     )
       .catch((AxiosError) => console.log(AxiosError.response.data.message));
-    navigate(`/ customer / orders / ${data.saleId}`);
+    navigate(`/customer/orders/${data.saleId}`);
   };
 
   useEffect(() => {
