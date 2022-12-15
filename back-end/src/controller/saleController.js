@@ -13,7 +13,6 @@ const saleController = {
   },
 
   findAllSales: async (req, res) => {
-    console.log(res.user, 'res.data do controller');
     const { id } = res.user;
     const sales = await saleService.findAllSales(id);
     res.status(200).json(sales);
