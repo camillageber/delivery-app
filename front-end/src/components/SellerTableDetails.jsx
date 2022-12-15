@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import ProductContext from '../context/ProductContext';
 
-function TableDetails() {
+function SellerTableDetails() {
   const { selectedProduct, total, calculateTotalPrice } = useContext(ProductContext);
 
   useEffect(() => calculateTotalPrice(), [calculateTotalPrice, total]);
 
+  console.log(selectedProduct);
   const generateRow = () => selectedProduct.map((item, index) => (
     <tr key={ index }>
       <td
@@ -80,4 +81,4 @@ function TableDetails() {
   );
 }
 
-export default TableDetails;
+export default SellerTableDetails;
