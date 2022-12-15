@@ -7,7 +7,7 @@ import Register from './pages/register';
 import Checkout from './pages/checkout';
 import SellerOrders from './pages/sellers/SellerOrders';
 import ProductProvider from './context/ProductProvider';
-import OrderDetails from './pages/order_details';
+import OrderDetails from './pages/orderDetails';
 
 function App() {
   return (
