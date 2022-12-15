@@ -94,10 +94,6 @@ export default function ProductProvider({ children }) {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
   const deleteSelectProduct = ({ target }) => {
     const { id } = target;
     const newSelectedProducts = selectedProduct.filter((sel) => sel.name !== id);
