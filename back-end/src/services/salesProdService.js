@@ -1,9 +1,8 @@
-const { Op } = require('sequelize');
 const db = require('../database/models');
 
 const saleProdService = {
-    infoProd : async (id) => {
-        const data = await db.Product.findOne({ where: id })
+    infoProd: async (id) => {
+        const data = await db.Product.findOne({ where: id });
         return data.dataValues;
     },
   // https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
