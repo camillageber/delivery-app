@@ -3,12 +3,14 @@ const SaleProduct = (sequelize, DataTypes) => {
     saleId: {
       allowNull: false,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      field: 'sale_id'
     },
     productId: {
       allowNull: false,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      field: 'product_id'
     },
     quantity: {
       allowNull: false,

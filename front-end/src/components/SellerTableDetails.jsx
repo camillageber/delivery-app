@@ -1,13 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import ProductContext from '../context/ProductContext';
 
 function SellerTableDetails() {
-  const { selectedProduct, total, calculateTotalPrice } = useContext(ProductContext);
+  const { orderSellerDetails, orderDetails } = useContext(ProductContext);
 
-  useEffect(() => calculateTotalPrice(), [calculateTotalPrice, total]);
+  const calculateSubTotal = (item) => {
+    if (!item) return 0;
+    const subTotal = item.quantity * Number(item.price);
+    return subTotal;
+  };
 
-  console.log(selectedProduct);
-  const generateRow = () => selectedProduct.map((item, index) => (
+  console.log(orderDetails);
+  const generateRow = () => orderSellerDetails.map((item, index) => (
     <tr key={ index }>
       <td
         data-testid={ `seller_order_details__element-order-table-item-number-${index}` }
@@ -17,28 +21,28 @@ function SellerTableDetails() {
       <td
         data-testid={ `seller_order_details__element-order-table-name-${index}` }
       >
-        {item.name}
+        {item?.name}
       </td>
       <td
         data-testid={
           `seller_order_details__element-order-table-quantity-${index}`
         }
       >
-        {item.quantity}
+        {item?.quantity}
       </td>
       <td
         data-testid={
           `seller_order_details__element-order-table-unit-price-${index}`
         }
       >
-        {item.price.toString().replace(/\./, ',')}
+        {item?.price.toString().replace(/\./, ',')}
       </td>
       <td
         data-testid={
           `seller_order_details__element-order-table-sub-total-${index}`
         }
       >
-        {item.productTotalPrice.toString().replace(/\./, ',')}
+        { calculateSubTotal(item)}
       </td>
     </tr>
   ));
@@ -74,7 +78,7 @@ function SellerTableDetails() {
       >
         Total: R$
         {' '}
-        {total.toString().replace(/\./, ',')}
+        {orderDetails[0]?.totalPrice?.toString().replace(/\./, ',')}
 
       </span>
     </div>

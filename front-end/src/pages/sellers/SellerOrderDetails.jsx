@@ -7,10 +7,11 @@ import SellerTableDetails from '../../components/SellerTableDetails';
 
 function SellerOrderDetails() {
   const params = useParams();
-  const { fetchSalesDetailsById, orderDetails } = useContext(ProductContext);
+  const { fetchSalesDetailsById,
+    fetchSalesProdDetailsById } = useContext(ProductContext);
   useEffect(() => {
+    fetchSalesProdDetailsById(parseInt(params.id, 10));
     fetchSalesDetailsById(parseInt(params.id, 10));
-    console.log(orderDetails);
   }, []);
   return (
     <>
