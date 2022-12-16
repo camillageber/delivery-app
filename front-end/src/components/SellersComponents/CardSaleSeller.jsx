@@ -6,7 +6,7 @@ import moment from 'moment';
 function CardSaleSeller({
   id, totalPrice, deliveryAddress, deliveryNumber, saleDate, status }) {
   return (
-    <Link to={ `seller/orders/${id}` }>
+    <Link to={ `/seller/orders/${id}` }>
       <div>
         <p data-testid={ `seller_orders__element-order-id-${id}` }>{id}</p>
         <p data-testid={ `seller_orders__element-delivery-status-${id}` }>{status}</p>
