@@ -9,7 +9,7 @@ const handleAuth = async (req, res, next) => {
 
   const user = await validateToken(token);
   console.log(user, 'user');
-  
+
   res.user = user;
   return next();
 };

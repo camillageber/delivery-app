@@ -12,19 +12,32 @@ function NewUserByAdmComponent() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const roles = ['seller', 'customer'];
+  const statusCreated = 201;
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const valid = isLoginValid(userName, email, password);
-    setIsButtonDisabled(!valid);
-  }, [userName, email, password]);
+  const resetState = () => {
+    setDisplay('Usuário cadastrado com sucesso!');
+    setUserName('');
+    setEmail('');
+    setPassword('');
+    setRole('seller');
+  };
 
-  //   const navigate = useNavigate();
-
-  const admRegisterSubmit = async (event) => {
-    event.preventDefault();
+  const admRegisterSubmit = async (e) => {
+    e.preventDefault();
+    // const { name, email, password, role } = e.target;
+    console.log('clicou');
     try {
-      await httpRequest.post('/register', { name: userName, email, password, role })
-        .then(() => setDisplay('Usuário cadastrado com sucesso!'));
+      await httpRequest.post(
+        '/register/adm',
+        { name: userName, email, password, role },
+        { headers: { authorization: JSON.parse(localStorage.getItem('user')).token },
+        },
+      ).then((response) => {
+        if (response.status === statusCreated) {
+          resetState();
+        }
+      });
     } catch (AxiosError) {
       console.log(AxiosError);
       setDisplay(AxiosError.response.data.message);
@@ -34,6 +47,11 @@ function NewUserByAdmComponent() {
   const onComboboxChange = ({ target }) => {
     setRole(target.value);
   };
+
+  useEffect(() => {
+    const valid = isLoginValid(userName, email, password);
+    setIsButtonDisabled(!valid);
+  }, [userName, email, password]);
 
   return (
     <fieldset>
@@ -82,25 +100,25 @@ function NewUserByAdmComponent() {
             value={ role }
             onChange={ onComboboxChange }
           >
-            { roles.map((el, i) => (
-              <option key={ i }>{ el }</option>
-            )) }
+            {roles.map((el, i) => (
+              <option key={ i }>{el}</option>
+            ))}
           </select>
         </label>
         <button
           data-testid="admin_manage__button-register"
-          type="button"
+          type="submit"
           disabled={ isButtonDisabled }
         >
           CADASTRAR
         </button>
       </form>
-      { display
-       && (
-         <p data-testid="admin_manage__element-invalid-register">
-           { display }
-         </p>
-       ) }
+      {display
+        && (
+          <p data-testid="admin_manage__element-invalid-register">
+            {display}
+          </p>
+        )}
     </fieldset>
   );
 }
