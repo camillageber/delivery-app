@@ -15,15 +15,16 @@ export default function ProductProvider({ children }) {
   const [orders, setOrders] = useState([]);
   const [orderDetails, setOrderDetails] = useState([]);
   const [loginCount, setLoginCount] = useState(localStorage.getItem('user') || false);
+  const [orderSellerDetails, setOrderSellerDetails] = useState([]);
+
   const fetchOrders = async () => {
-    const { token, id } = JSON.parse(localStorage.getItem('user'));
-    console.log('token: ', token);
-    console.log('id: ', id);
+    const { token } = JSON.parse(localStorage.getItem('user'));
     const { data } = await httpRequest.get(
       '/sales',
       { headers: { Authorization: token } },
     )
       .catch((AxiosError) => console.log(AxiosError.response.data.message));
+    console.log(data);
     setOrders(data);
   };
 
@@ -91,6 +92,32 @@ export default function ProductProvider({ children }) {
     }
   };
 
+  const genSellerProductsOBJ = (obj) => {
+    const findObj = products.find((product) => product.id === obj.productId);
+    if (findObj) {
+      const { name, price } = findObj;
+
+      return { ...obj, name, price };
+    }
+  };
+
+  const fetchSalesProdDetailsById = async (sellerId) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    await httpRequest.get(
+      `/saleproducts/${sellerId}`,
+      { headers: { Authorization: token } },
+    )
+      .then(({ data }) => {
+        const dataDetails = data.map((e) => {
+          const newProduct = genSellerProductsOBJ(e);
+          return newProduct;
+        });
+        console.log(dataDetails);
+        setOrderSellerDetails(dataDetails);
+      })
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
+  };
+
   const generateSelectedProducts = () => {
     const selectedProducts = JSON.parse(localStorage.getItem('productCar'));
     const newSelectedProducts = selectedProducts.map((selected) => {
@@ -153,6 +180,8 @@ export default function ProductProvider({ children }) {
     orderDetails,
     loginCount,
     setLoginCount,
+    fetchSalesProdDetailsById,
+    orderSellerDetails,
   };
 
   return (

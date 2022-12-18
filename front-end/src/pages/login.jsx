@@ -54,6 +54,7 @@ function Login() {
         .then(({ data }) => {
           const { token, name, role, id } = data;
           localStorage.setItem('user', JSON.stringify({ token, name, role, email, id }));
+
           switch (role) {
           case 'administrator':
             navigate('/admin/manage');

@@ -5,10 +5,13 @@ import './Navigation.css';
 
 function Navigation() {
   const [nameDisplay, setName] = useState('Nome do usuário');
+  const [roleUser, setRole] = useState('');
+
   useEffect(() => {
-    const { name } = JSON.parse(localStorage.getItem('user'));
+    const { name, role } = JSON.parse(localStorage.getItem('user'));
     setName(name);
-  }, [nameDisplay]);
+    setRole(role);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -27,7 +30,7 @@ function Navigation() {
       <section
         data-testid="customer_products__element-navbar-link-orders"
       >
-        <a href="/customer/orders">Meus Pedidos</a>
+        <a href={ `/${roleUser}/orders` }>Meus Pedidos</a>
       </section>
       <section
         data-testid="customer_products__element-navbar-user-full-name"
