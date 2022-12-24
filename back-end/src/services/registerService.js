@@ -44,6 +44,15 @@ const registerService = {
 
         return users;
     },
+
+    deleteUser: async (id) => {
+        const user = await db.User.findOne({ where: { id } });
+        if (!user) {
+            throw new CreateError('NotFoundError', 'Usuário não encontrado');
+        }
+        await db.User.destroy({ where: { id } });
+        return true;
+    },
 };
 
 module.exports = registerService;

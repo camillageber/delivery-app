@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import { useNavigate } from 'react-router';
 import isLoginValid from '../../validations/registerValidation';
 import httpRequest from '../../axios/config';
+import ProductContext from '../../context/ProductContext';
 
 function NewUserByAdmComponent() {
   const [userName, setUserName] = useState('');
@@ -10,6 +11,8 @@ function NewUserByAdmComponent() {
   const [role, setRole] = useState('seller');
   const [display, setDisplay] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const { update, setUpdate } = useContext(ProductContext);
 
   const roles = ['seller', 'customer'];
   const statusCreated = 201;
@@ -21,6 +24,7 @@ function NewUserByAdmComponent() {
     setEmail('');
     setPassword('');
     setRole('seller');
+    setUpdate(update + 1);
   };
 
   const admRegisterSubmit = async (e) => {
@@ -31,7 +35,8 @@ function NewUserByAdmComponent() {
       await httpRequest.post(
         '/register/adm',
         { name: userName, email, password, role },
-        { headers: { authorization: JSON.parse(localStorage.getItem('user')).token },
+        {
+          headers: { authorization: JSON.parse(localStorage.getItem('user')).token },
         },
       ).then((response) => {
         if (response.status === statusCreated) {
