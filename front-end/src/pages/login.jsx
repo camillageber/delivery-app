@@ -20,8 +20,22 @@ function Login() {
   const navigate = useNavigate();
 
   const checkIfTokenExists = () => {
-    if (loginCount) return navigate('/customer/products');
+    if (loginCount) {
+      const { role } = JSON.parse(localStorage.getItem('user'));
+      switch (role) {
+      case 'administrator':
+        navigate('/admin/manage');
+        break;
+      case 'seller':
+        navigate('/seller/orders');
+        break;
+      default:
+        navigate('/customer/products');
+        break;
+      }
+    }
   };
+
   useEffect(() => checkIfTokenExists(), []);
   // const loginSubmit = async (event) => {
   //   event.preventDefault();
@@ -40,8 +54,18 @@ function Login() {
         .then(({ data }) => {
           const { token, name, role, id } = data;
           localStorage.setItem('user', JSON.stringify({ token, name, role, email, id }));
-          if (role === 'customer') navigate('/customer/products');
-          if (role === 'seller') navigate('/seller/orders');
+
+          switch (role) {
+          case 'administrator':
+            navigate('/admin/manage');
+            break;
+          case 'seller':
+            navigate('/seller/orders');
+            break;
+          default:
+            navigate('/customer/products');
+            break;
+          }
         });
     } catch (AxiosError) {
       console.log(AxiosError.response.data.message);

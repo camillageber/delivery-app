@@ -16,6 +16,26 @@ export default function ProductProvider({ children }) {
   const [orderDetails, setOrderDetails] = useState([]);
   const [loginCount, setLoginCount] = useState(localStorage.getItem('user') || false);
   const [orderSellerDetails, setOrderSellerDetails] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [update, setUpdate] = useState(0);
+
+  const deleteUsers = async (id) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    await httpRequest.delete(`/register/${id}`, { headers: { Authorization: token } })
+      .then(() => setUpdate(update - 1))
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
+  };
+
+  const fetchUsers = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const { data } = await httpRequest.get(
+      '/register',
+      { headers: { Authorization: token } },
+    )
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
+    console.log(data);
+    setUsers(data);
+  };
 
   const fetchOrders = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -182,6 +202,11 @@ export default function ProductProvider({ children }) {
     setLoginCount,
     fetchSalesProdDetailsById,
     orderSellerDetails,
+    users,
+    fetchUsers,
+    update,
+    setUpdate,
+    deleteUsers,
   };
 
   return (
