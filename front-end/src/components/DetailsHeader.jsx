@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ProductContext from '../context/ProductContext';
 import './DetailsHeader.css';
 
 function DetailsHeader() {
-  const { orderDetails } = useContext(ProductContext);
+  const params = useParams();
+  const { orderDetails, updateStatus,
+    fetchSalesDetailsById, changedStatus } = useContext(ProductContext);
   const convertData = () => {
     let date;
     if (orderDetails[0]) {
@@ -12,6 +15,15 @@ function DetailsHeader() {
     }
     return date;
   };
+
+  const checkStatusTransito = () => {
+    const value = /Em Trânsito/.test(orderDetails[0]?.status);
+    return !(value);
+  };
+  useEffect(() => {
+    fetchSalesDetailsById(parseInt(params.id, 10));
+    console.log(changedStatus);
+  }, [changedStatus, orderDetails, fetchSalesDetailsById]);
   return (
     <div className="details-header">
       <h4
@@ -39,7 +51,10 @@ function DetailsHeader() {
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
-        disabled
+        disabled={ checkStatusTransito() }
+        onClick={ () => {
+          updateStatus(orderDetails[0]?.id, 'Entregue');
+        } }
       >
         Marcar como Entregue
       </button>

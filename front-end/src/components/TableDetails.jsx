@@ -6,6 +6,7 @@ function TableDetails() {
 
   useEffect(() => calculateTotalPrice(), [calculateTotalPrice, total]);
 
+  console.log(selectedProduct);
   const generateRow = () => selectedProduct.map((item, index) => (
     <tr key={ index }>
       <td

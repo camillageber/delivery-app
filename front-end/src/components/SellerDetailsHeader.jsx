@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ProductContext from '../context/ProductContext';
 import './DetailsHeader.css';
 
 function DetailsHeader() {
-  const { orderDetails } = useContext(ProductContext);
+  const { orderDetails, updateStatus,
+    fetchSalesDetailsById, setChangedStatus, changedStatus } = useContext(ProductContext);
   const convertData = () => {
     let date;
     if (orderDetails[0]) {
@@ -12,6 +13,21 @@ function DetailsHeader() {
     }
     return date;
   };
+
+  useEffect(() => orderDetails, [fetchSalesDetailsById, orderDetails]);
+
+  const checkStatusPreparo = () => {
+    const value = /Em Trânsito|Entregue|Preparando/.test(orderDetails[0]?.status);
+    if (value) return value;
+    return false;
+  };
+
+  const checkStatusTransito = () => {
+    const value = /Em Trânsito|Entregue|Pendente/.test(orderDetails[0]?.status);
+    if (value) return value;
+    return false;
+  };
+
   return (
     <div className="details-header">
       <h4
@@ -33,13 +49,24 @@ function DetailsHeader() {
       <button
         type="button"
         data-testid="seller_order_details__button-preparing-check"
+        disabled={ checkStatusPreparo() }
+        onClick={ async () => {
+          updateStatus(orderDetails[0]?.id, 'Preparando');
+          await fetchSalesDetailsById(parseInt(orderDetails[0]?.id, 10));
+          setChangedStatus(changedStatus + 1);
+        } }
       >
-        Preparar Pedido
+        Preparo
       </button>
       <button
         type="button"
         data-testid="seller_order_details__button-dispatch-check"
-        disabled
+        disabled={ checkStatusTransito() }
+        onClick={ async () => {
+          updateStatus(orderDetails[0]?.id, 'Em Trânsito');
+          await fetchSalesDetailsById(parseInt(orderDetails[0]?.id, 10));
+          setChangedStatus(changedStatus + 1);
+        } }
       >
         Saiu para Entrega
       </button>
