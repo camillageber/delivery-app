@@ -18,6 +18,7 @@ export default function ProductProvider({ children }) {
   const [orderSellerDetails, setOrderSellerDetails] = useState([]);
   const [users, setUsers] = useState([]);
   const [update, setUpdate] = useState(0);
+  const [changedStatus, setChangedStatus] = useState(0);
 
   const deleteUsers = async (id) => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -82,6 +83,18 @@ export default function ProductProvider({ children }) {
       })
       .catch((AxiosError) => console.log(AxiosError.response.data.message));
     /* setOrderDetails(data); */
+  };
+
+  const updateStatus = async (saleId, status) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    console.log('chamou');
+    await httpRequest.put(
+      `/sales/${saleId}`,
+      { status },
+      { headers: { Authorization: token } },
+    )
+      .then((data) => console.log(data))
+      .catch((AxiosError) => console.log(AxiosError.response.data.message));
   };
 
   const generateObjSale = () => {
@@ -207,6 +220,9 @@ export default function ProductProvider({ children }) {
     update,
     setUpdate,
     deleteUsers,
+    updateStatus,
+    changedStatus,
+    setChangedStatus,
   };
 
   return (
