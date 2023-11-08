@@ -28,7 +28,7 @@ Esse projeto foi elaborado por mim em colaboração com os brilhantes colegas [J
   - Entre na pasta do repositório que você acabou de clonar:
     - `cd camillageber/delivery-app.git`
   
-  2. Instale as dependências
+  <strong>2. Instale as dependências</strong>
 
   - Para isso, use o seguinte comando: `npm install`
 
