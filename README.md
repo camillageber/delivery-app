@@ -24,9 +24,9 @@ Esse projeto foi elaborado por mim em colaboração com os brilhantes colegas [J
 
   <strong>1. Clone o repositório</strong>
 
-  - Use o comando: `git clone `.
+  - Use o comando: `git clone git@github.com:camillageber/delivery-app.git`.
   - Entre na pasta do repositório que você acabou de clonar:
-    - `cd s`
+    - `cd camillageber/delivery-app.git`
   
   2. Instale as dependências
 
